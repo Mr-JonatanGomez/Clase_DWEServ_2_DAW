@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        table{
+            width: 50%;
+            border: solid 2px;
+        }
+        tr{
+        text-align: center;
+        }
+        td{
+            border: solid 1px;
+        }
+
+        
+    </style>
 </head>
 <body>
     <?php
@@ -14,6 +28,24 @@
             print $numeroRand ." x ". $i ." = ". $numeroRand*$i ."<br>";
         }
 //todo hacer la tabla, esperando respuesta del profesor
+        print "<br>";
+        //echo "<tr>"
+
+        print "<table>";
+        echo "<tr>";
+        echo "<th>multiplicando</th><th>multiplicador</th><th>producto</th>";
+        echo "</tr>";
+
+        echo "<tr>";
+        for ($i=0; $i <=10 ; $i++) { 
+            $result = $i*$numeroRand;
+            print "<tr><td> $numeroRand </td> <td>$i</td> <td>$result</td></tr><br>";
+        }
+        
+        echo "</tr>";
+
+        print "</table>";
+
     ?>
 
 </body>
