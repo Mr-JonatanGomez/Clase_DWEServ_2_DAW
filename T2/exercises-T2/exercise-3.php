@@ -7,12 +7,7 @@
 </head>
 <body>
     <?php
-// necesita los cierres de linea
-// al ejecutar un php, solo muestra el html
-print "<u><b>Hola que tal por print</u></b>";
-print "CODO\n";
-echo "<u><b>Hola que tal por echol</u></b>";
 
-?>
+    ?>
 </body>
 </html>
