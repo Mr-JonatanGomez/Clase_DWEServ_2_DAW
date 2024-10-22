@@ -1,24 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <?php
-
-    ?>
-</body>
-</html> -->
-
-<?php
-// Generar tres números aleatorios entre 5 y 20
-$numeros = [];
-for ($i = 0; $i < 3; $i++) {
-    $numeros[] = rand(5, 20);
-}
-?>
 
 <!DOCTYPE html>
 <html lang="es">
