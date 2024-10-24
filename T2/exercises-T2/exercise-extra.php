@@ -32,6 +32,8 @@
                 }
     
         }
+
+        //todo intentar colocarlo en una linea y añadir el porcentaje de cada opcion, si fuera equitativo 16.6
 print "<img src='./img/1.png' width=60 height=60/> <h3> salió un total de $contador1 veces </h3>";
 print "<img src='./img/2.png' width=60 height=60/> <h3> salió un total de $contador2 veces </h3>";
 print "<img src='./img/3.png' width=60 height=60/> <h3> salió un total de $contador3 veces </h3>";
