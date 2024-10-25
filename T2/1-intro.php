@@ -19,7 +19,7 @@ $variableDouble=1.57;
 $variableString="Hola esto es una cadena";
 $paraDump=[1,2,3,5,6,"lilio"];
 
-print "<br>Las variables van como en JS, sin tipar, podemos usar gettype para ver su tipo\n";
+print "<br>Las variables van como en JS, sin tipar, pero su id es el simbolo <b>$</b>, podemos usar gettype para ver su tipo\n";
 
 print "<br> usando el gettype con una variable, su tipo es: ".gettype($variableNum);
 echo "<br> usando el gettype con otra variable, su tipo es: ".gettype($variableBool);
@@ -31,6 +31,14 @@ echo "<br> usando el is_numeric con otra variable string, es numerico?: ".(is_nu
 print "<br>";
 echo "<br> usando el var_dump() con otra variable array, mostrara tipo y valor: ";
 echo var_dump($paraDump);
+$x = 2;
+$y = 4;
+$suma = $x + $y;
+$producto = $x * $y;
+$potencia = pow($x, $y);
+print "<p>Suma: $x + $y = $suma</p>\n";
+print "<p>Multiplicación: $x x $y = $producto</p>\n";
+print "<p>Potencia: $x ^ $y = $potencia</p>\n";
 
 ?>
 </body>
