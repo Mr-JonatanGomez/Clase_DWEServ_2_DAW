@@ -1,0 +1,129 @@
+body {
+  /* background-color: black; */
+  width: 99%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column; /* Esto coloca los elementos en columna */
+}
+
+.tablero {
+  /*tablero de juego*/
+  position: relative;
+  align-items: center;
+  width: 600px;
+  max-width: 80%;
+  height: 450px;
+
+  background-image: url(./img/tapeteJongo.jpg);
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  text-align: center;
+  border: 4px ridge rgb(8, 165, 21);
+  border-radius: 60px;
+  padding: 25px; /* para darle es espacio interior */
+
+  flex-direction: column;
+}
+#juego {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(
+    -50%
+  ); /* Ajusta para que el centro sea el punto de referencia */
+  color: white;
+  font-weight: bold;
+  text-shadow: 5px 5px 5px black;
+  font-size: large;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+#jug1 {
+  /*zona del nombre jugador */
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+
+  position: absolute;
+  top: 25px;
+  left: 50px;
+  color: white;
+  font-weight: bolder;
+}
+#jug2 {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+
+  position: absolute;
+  bottom: 25px;
+  right: 50px;
+  color: white;
+  font-weight: bolder;
+}
+
+.jugador1-cont,
+.jugador2-cont {
+  /*container de cada jugador*/
+  /* border: solid 1px; */ /* para comprobar los huecos */
+  height: 250px;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+}
+
+#dadoPosition1 {
+  position: absolute;
+  top: 130px;
+  left: 50%; /* Mueve el contenedor al centro horizontalmente */
+  transform: translateX(
+    -50%
+  ); /* Ajusta para que el centro sea el punto de referencia */
+  display: flex; /* Aplica flexbox para centrado */
+  justify-content: center; /* Centra los elementos hijos ---> DADOS */
+  width: 100%;
+}
+#dadoPosition2 {
+  position: absolute;
+  bottom: 140px;
+  left: 50%; /* Mueve el contenedor al centro horizontalmente */
+  transform: translateX(
+    -50%
+  ); /* Ajusta para que el centro sea el punto de referencia */
+  display: flex; /* Aplica flexbox para centrado */
+  justify-content: center; /* Centra los elementos hijos ---> DADOS */
+  width: 100%;
+}
+
+.resultados {
+  margin-top: 10px;
+  text-align: center;
+  padding-left: 25px;
+  padding-right: 25px;
+  width: 650px;
+  max-width: 80%;
+
+  background-color: beige;
+  padding-bottom: 8px;
+  border: ridge 4px black;
+  border-radius: 40px;
+}
+#table {
+  text-align: center;
+  border: solid 2px;
+  /* border: 3px ridge rgb(247, 151, 151); */
+  margin: 0 auto;
+}
+td {
+  padding: 5px;
+  border: solid 2px;
+}
+.result{
+    
+    width: 75%;
+    
+    text-align: center;
+    border: solid 2px;
+    /* border: 3px ridge rgb(247, 151, 151); */
+    margin: 5px auto;
+
+}

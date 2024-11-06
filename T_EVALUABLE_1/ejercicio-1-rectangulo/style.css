@@ -1,0 +1,29 @@
+body {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin-top: 5%;
+}
+
+.container {
+    background-color: rgb(255, 223, 239);
+  text-align: center;
+  border: 3px ridge rgb(255, 141, 141);
+  border-radius: 6px;
+  box-shadow: 15px black;
+  width: 50%;
+  padding: 25px; /* para darle es espacio interior */
+}
+
+.container-rectangule{
+    background-color: rgb(156, 225, 247);
+    margin: 0 auto;
+    border: 3px ridge rgb(134, 136, 255);
+    padding:15px;
+    max-width: fit-content;
+}
+
+#parrafo{
+    text-align: left;
+}
