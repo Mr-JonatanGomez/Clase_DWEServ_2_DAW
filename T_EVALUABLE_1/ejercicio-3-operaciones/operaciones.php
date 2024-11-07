@@ -7,21 +7,71 @@
         <link rel="stylesheet" href="./style.css" />
     </head>
     <body>
-        <h1>Operaciones matemáticas</h1>
         <div class="container">
+            <h1 id="ej1">Operaciones matemáticas</h1>
             <?php
                 $numA=0;
                 $numB=0;
-            ?>
-            <div class="form">
+                ?>
 
-                <form>
-                    <label>Introduce un número</label>
-                    
-    
-    
+            <div class="form">
+                
+                <form method="post">
+                    <table>
+                        <tr>
+                            <td><label>Introduce primer operando:</label></td>
+                            <td><input name="numA" class="num" type="number" placeholder="ej: 15"></td>
+                            <td class="selectOper" colspan="4"><label>Seleccione la operación</label></td>
+                        </tr>
+                        <tr>
+                        <td><label>Introduce segundo operando:</label></td>
+                        <td><input name="numB" class="num" type="number" placeholder="ej: 5"></td>
+                        <td><input type="radio" name="operation" value="suma">Suma</td>
+                        <td><input type="radio" name="operation" value="resta">Resta</td>
+                        <td><input type="radio" name="operation" value="multiplicacion">Multipliación</td>
+                        <td><input type="radio" name="operation" value="division">División</td>
+                        </tr>
+                    </table>
+                        <input id="envio" type="submit" value="Enviar datos">
                 </form>
 
+                <div id="resultado">
+                    <?php
+                    //todo, sacado con chat, esperar explicacion del profesor
+                    
+
+                    /* if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                        $numA = $_POST["numA"];
+                        $numB = $_POST["numB"];
+                        $operation = $_POST["operation"];
+                        $result = null;
+                        
+                        if ($numA !== "" && $numB !== "" && $operation) {
+                            switch ($operation) {
+                                case "suma":
+                                    $result = $numA + $numB;
+                                    break;
+                                case "resta":
+                                    $result = $numA - $numB;
+                                    break;
+                                case "multiplicacion":
+                                    $result = $numA * $numB;
+                                    break;
+                                case "division":
+                                    if ($numB == 0) {
+                                        echo "No se puede dividir entre 0.";
+                                        exit;
+                                    }
+                                    $result = $numA / $numB;
+                                    break;
+                            }
+                            echo "Resultado: $result";
+                        } else {
+                            echo "Por favor, completa todos los campos.";
+                        }
+                    } */
+                ?>
+                </div>
             </div>
         </div>
     </body>
