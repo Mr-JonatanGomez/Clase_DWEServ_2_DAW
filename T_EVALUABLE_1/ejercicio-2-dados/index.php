@@ -112,14 +112,29 @@
         </table>
 
     <?php
+        $rondasJug1=0;
+        $rondasJug2=0;
+        $empate=0;
+
+        for ($i=0; $i <$numeroRondas ; $i++) { 
+           if ($arrayPuntosJ1[$i]>$arrayPuntosJ2[$i]) {
+            $rondasJug1++;
+           }else if($arrayPuntosJ1[$i]<$arrayPuntosJ2[$i]) {
+            $rondasJug2++;
+           }else{
+            $empate++;
+           }
+        }
+
+
         echo "<div class='result'>";
-            print "<p><b>$jugador1</b> ha obtenido $puntosJ1 puntos</p>";
+            print "<p><b>$jugador1</b> ha obtenido $puntosJ1 puntos </p>";
             print "<p><b>$jugador2</b> ha obtenido $puntosJ2 puntos</p>";
 
             if ($puntosJ1 > $puntosJ2) {
-                print "<p><b>El ganador ha sido $jugador1 con una diferencia de ".$puntosJ1-$puntosJ2 ." puntos</b></p>";
+                print "<p><b>El ganador ha sido $jugador1 con una diferencia de ".$puntosJ1-$puntosJ2 ." puntos</b>\n con ".$rondasJug1." victorias, ".$empate." empates y ".$rondasJug2." derrotas</p>";
             }elseif ($puntosJ1 < $puntosJ2) {
-                print "<p><b>El ganador ha sido $jugador2 con una diferencia de ".$puntosJ2-$puntosJ1 ." puntos</b></p>";
+                print "<p><b>El ganador ha sido $jugador2 con una diferencia de ".$puntosJ2-$puntosJ1 ." puntos</b>\n con ".$rondasJug2." victorias, ".$empate." empates y ".$rondasJug1." derrotas</p>";
             }else{
                 print "<p><b>La partida ha finalizado con empate</b></p>";
             }
