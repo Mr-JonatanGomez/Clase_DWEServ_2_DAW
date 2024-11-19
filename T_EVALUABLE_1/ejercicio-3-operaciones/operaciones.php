@@ -9,14 +9,11 @@
     <body>
         <div class="container">
             <h1 id="ej1">Operaciones matemáticas</h1>
-            <?php
-                $numA=0;
-                $numB=0;
-                ?>
+            
 
             <div class="form">
                 
-                <form method="post">
+                <form action="datos_operaciones.php" method="post">
                     <table>
                         <tr>
                             <td><label>Introduce primer operando:</label></td>
@@ -26,17 +23,18 @@
                         <tr>
                         <td><label>Introduce segundo operando:</label></td>
                         <td><input name="numB" class="num" type="number" placeholder="ej: 5"></td>
+                        
                         <td><input type="radio" name="operation" value="suma">Suma</td>
                         <td><input type="radio" name="operation" value="resta">Resta</td>
                         <td><input type="radio" name="operation" value="multiplicacion">Multipliación</td>
                         <td><input type="radio" name="operation" value="division">División</td>
                         </tr>
                     </table>
-                        <input id="envio" type="submit" value="Enviar datos">
+                        <input id="envio" type="submit" value="Enviar">
                 </form>
 
                 <div id="resultado">
-                    <?php
+                    
                     //todo, sacado con chat, esperar explicacion del profesor
                     
 
@@ -70,7 +68,7 @@
                             echo "Por favor, completa todos los campos.";
                         }
                     } */
-                ?>
+                
                 </div>
             </div>
         </div>
