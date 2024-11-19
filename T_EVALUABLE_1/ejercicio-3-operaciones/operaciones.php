@@ -33,43 +33,6 @@
                         <input id="envio" type="submit" value="Enviar">
                 </form>
 
-                <div id="resultado">
-                    
-                    //todo, sacado con chat, esperar explicacion del profesor
-                    
-
-                    /* if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                        $numA = $_POST["numA"];
-                        $numB = $_POST["numB"];
-                        $operation = $_POST["operation"];
-                        $result = null;
-                        
-                        if ($numA !== "" && $numB !== "" && $operation) {
-                            switch ($operation) {
-                                case "suma":
-                                    $result = $numA + $numB;
-                                    break;
-                                case "resta":
-                                    $result = $numA - $numB;
-                                    break;
-                                case "multiplicacion":
-                                    $result = $numA * $numB;
-                                    break;
-                                case "division":
-                                    if ($numB == 0) {
-                                        echo "No se puede dividir entre 0.";
-                                        exit;
-                                    }
-                                    $result = $numA / $numB;
-                                    break;
-                            }
-                            echo "Resultado: $result";
-                        } else {
-                            echo "Por favor, completa todos los campos.";
-                        }
-                    } */
-                
-                </div>
             </div>
         </div>
     </body>

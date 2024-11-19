@@ -7,14 +7,17 @@
         <link rel="stylesheet" href="./style.css" />
     </head>
     <body>
+
+    <div class="container" style="padding: 15px;">
+
         <?php
             $resultado;
-
             
-                $num1 = $_REQUEST["numA"];
-                $num2 = $_REQUEST["numB"];
-                $operacion = $_REQUEST["operation"];
-
+            
+            $num1 = $_REQUEST["numA"];
+            $num2 = $_REQUEST["numB"];
+            $operacion = $_REQUEST["operation"];
+            
             if (is_numeric($num1) && is_numeric($num2)) {
                 # hacer switch
             }else if ($operacion !=="") {
@@ -26,38 +29,39 @@
                 <br>
                 y este mensaje es solo de decoro");
             }
-
-                switch ($operacion) {
-                    case 'suma':
-                        $resultado = $num1+$num2;
-                        break;
+            
+            switch ($operacion) {
+                case 'suma':
+                    $resultado = $num1+$num2;
+                    break;
                     case 'resta':
                         $resultado = $num1-$num2;
                         break;
-                    case 'multiplicacion':
-                        $resultado = $num1*$num2;
-                        break;
-                    case 'division':
-                        if ($num2==0) {
-                            $resultado = "No se puede dividir entre 0";
+                        case 'multiplicacion':
+                            $resultado = $num1*$num2;
                             break;
-                        }
-                        else{
-
-                            $resultado = $num1/$num2;
-                            break;
-                        }
-                    
-                }
-
-                print("<br>TUS DATOS<br>\n");
-            
-                echo("Primer numero: $num1<br>
-                Segundo numero: $num2<br>
-                Operacion elegida: $operacion<br>
-                Resultado: $resultado");
-            
-
-        ?>
+                            case 'division':
+                                if ($num2==0) {
+                                    $resultado = "No se puede dividir entre 0";
+                                    break;
+                                }
+                                else{
+                                    
+                                    $resultado = $num1/$num2;
+                                    break;
+                                }
+                                
+                            }
+                            
+                            print("<br>TUS DATOS<br>\n");
+                            
+                            echo("Primer numero: $num1<br>
+                            Segundo numero: $num2<br>
+                            Operacion elegida: $operacion<br>
+                            Resultado: $resultado");
+                            
+                            
+                            ?>
+    </div>
     </body>
 </html>
