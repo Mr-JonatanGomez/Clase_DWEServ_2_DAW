@@ -7,38 +7,62 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <form action="" method="post">
-        <h1>Salario</h1>
-        Horas trabajadas L-V (12€) <br>
-        <input type="number" name="lunes" placeholder="Introduce aquí primer numero"><br>
-        
-        Horas trabajadas S (15€) <br>
-        <input type="number" name="sabados" placeholder="Introduce aquí Horas extras"><br>
-
-        Horas trabajadas Festivos (24€) <br>
-        <input type="number" name="festivos" placeholder="Introduce aquí horas Festivas"><br>
-
-        <input type="submit" name="calcular" value="calcular">
-    </form>
-
-<form class="result">
+<form>
 
     <?php
-    function calculoSalarial($a,$b,){
-       //todo REALIZAR LOGICA
+    
+    function calculoSalarial($horasN,$horasE,$horasF){
+        $precioHora=12;
+        $precioExtra=15;
+        $precioFestivo=24;
+        $base=$precioHora*$horasN;
+        $extra=$precioExtra*$horasE;
+        $fest=$precioFestivo*$horasF;
+        
+        if ( !is_numeric($horasN)||!is_numeric($horasE)||!is_numeric($horasF)) {
+            echo("Lo siento, debes rellenar con numeros");
+        }
+        
+        $salarioMensual=$base+$extra+$fest;
+        echo("Tu sueldo base este mes es:<br>");
+        echo("Por horas base= $base<br>");
+        echo("Por horas extra= $extra<br>");
+        echo("Por horas festivas= $fest<br><br>");
+        echo("<b>Tu sueldo total= $salarioMensual</b><br>");
     }
-
+    
     if (isset($_REQUEST["calcular"])) {
-        $num1=$_REQUEST["num1"];
-        $num2=$_REQUEST["num2"];
+        $totalHoras=$_REQUEST["horas"];
+        $totalExtras=$_REQUEST["extras"];
+        $totalFestivos=$_REQUEST["festivos"];
 
-        opers($num1,$num2);
+        calculoSalarial($totalHoras,$totalExtras,$totalFestivos);
+    }else{
+
+        ?>
+        <h1>Salario</h1>
+        Horas trabajadas L-V (12€) <br>
+        <input type="number" name="horas" placeholder="Introduce aquí primer numero" required><br>
+        
+        Horas trabajadas S (15€) <br>
+        <input type="number" name="extras" placeholder="Introduce aquí Horas extras" required><br>
+
+        Horas trabajadas Festivos (24€) <br>
+        <input type="number" name="festivos" placeholder="Introduce aquí horas Festivas" required><br>
+
+        <input type="submit" name="calcular" value="calcular">
+
+        <?php
     }
 
 
 
     
-    ?>
+        ?>
 </form>
+
+   
+
+
 </body>
 </html>
