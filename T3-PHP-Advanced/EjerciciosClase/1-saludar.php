@@ -6,16 +6,15 @@
     <title>Document</title>
 </head>
 <body>
+<?php
+$nombrecito = $_REQUEST["nombre"];
+
+
+
+    echo("Hola, $nombrecito");
+
+
+?>
     
-<form action="2-saluda.php" method="post">
-Nombre :  <input type="text" name="nombre"><br>
-Password: <input type="password" name="password"><br>
-<input type="submit" value="enviar">
-
-
-
-</form>
-
-
 </body>
 </html>
