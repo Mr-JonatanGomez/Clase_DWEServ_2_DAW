@@ -1,0 +1,47 @@
+body {
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+h1 {
+  text-align: center;
+}
+form {
+  background-color: beige;
+  margin: 0 auto;
+  width: 80%;
+  min-width: fit-content;
+  /* max-width: 80%; */
+  align-items: center;
+  justify-content: center;
+
+  padding: 18px;
+  border: outset rgb(155, 0, 0) 5px;
+  border-radius: 12px;
+}
+table{
+  margin: 0 auto;
+}
+
+.aficiones{
+  padding-bottom: 11px;
+}
+.edad{
+  padding-bottom: 15px;
+}
+
+/* td{
+  border: solid;
+}
+ */
+input {
+
+  /* text-align: center; */
+  margin-bottom: 15px;
+}
+
+
+
+
