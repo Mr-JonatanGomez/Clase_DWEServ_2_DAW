@@ -1,0 +1,17 @@
+/* nav{
+    display: block;
+    gap: 30px;
+} */
+
+a{
+    padding: 7px;
+    border: solid 1px;
+    text-decoration: none;
+    color: black;
+    background-color: blanchedalmond;
+    
+}
+h3{
+    color: red;
+    background-color: bisque;
+}
