@@ -2,16 +2,42 @@
     display: block;
     gap: 30px;
 } */
-
-a{
+body{
+    display: flex;
+}
+a, .boton{
     padding: 7px;
     border: solid 1px;
+    border-radius: 6px;
     text-decoration: none;
-    color: black;
-    background-color: blanchedalmond;
+    color: rgb(255, 255, 255);
+    background-color: rgb(33, 54, 248);
+    margin-top: 30px;
+
     
 }
-h3{
+h1,h2{
+    text-align: center;
     color: red;
-    background-color: bisque;
+    
+}
+
+.container{
+    align-items: center;
+    text-align: center;
+    padding: 15px;
+    margin: 15% auto;
+    background-color: rgb(255, 233, 207);
+    border: solid 3px black;
+    border-radius: 12px;
+    width: 600px;
+}
+
+.cont1,
+.cont2{
+    margin-top: 15px;
+    
+}
+.cont3{
+    margin-top: 25px;
 }
