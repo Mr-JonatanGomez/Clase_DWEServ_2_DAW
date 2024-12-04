@@ -28,8 +28,9 @@
 ?>
     <div class="container">
         <form action="" method="post">
+            <h2>Introduce tu nombre</h3>
             <label for="nombre">Nombre</label>
-            <input type="text" id="nombre" name="nombre">
+            <input type="text" id="nombre" name="nombre" required>
             <input class="boton" type="submit" name="enviarNombre" value="enviarNombre">
         </form>
     </div>
