@@ -20,16 +20,20 @@
     if (!isset($_REQUEST['apellidos'])) {
 ?>
     <div class="container">
-        <form action="#" method="post">
+        <form action="" method="post">
+            <h2>Introduce tus apellidos</h2>
             <label for="apellidos">Apellidos</label>
-            <input type="text" name="apellidos" id="apellidos">
-            <input type="submit" name="apellidosEnviar" value="Enviar Apellidos">
+            <input type="text" name="apellidos" id="apellidos" required>
+            <input class="boton" type="submit" name="apellidosEnviar" value="Enviar Apellidos">
         </form>
     </div>
 <?php
     } else {
 ?>
-        <a href="./index.php">volver al menú</a>
+        <div class="container">
+            <h2>apellidos introducidos con exito</h2>
+            <a href="./index.php">volver al menú</a>
+        </div>
         <!-- echo $_SESSION["apellidos"]; -->
 <?php
     }

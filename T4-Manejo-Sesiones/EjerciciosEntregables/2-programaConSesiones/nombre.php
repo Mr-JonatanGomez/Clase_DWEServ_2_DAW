@@ -28,7 +28,7 @@
 ?>
     <div class="container">
         <form action="" method="post">
-            <h2>Introduce tu nombre</h3>
+            <h2>Introduce tu nombre</h2>
             <label for="nombre">Nombre</label>
             <input type="text" id="nombre" name="nombre" required>
             <input class="boton" type="submit" name="enviarNombre" value="enviarNombre">
@@ -37,23 +37,17 @@
 
 <?php
     }else {
-        if ($nombre=="") {
-            echo '<div class="container">';
-            unset($_SESSION[$nombre]);
-            /* session_destroy(); */
-            echo "El nombre en vacio, no se puede introducir, por favor introduzca de nuevo<br><br>";
-            echo'<a href="./nombre.php">Escribir nombre</a>';
-            echo "</div>";
-        }else{
+        
 ?>
-    <div class="container">
-        <h2>Nombre introducido con exito</h2>
-        <a href="./index.php">volver al menú</a>
-    </div>
-    <!-- echo $_SESSION['nombre']; -->
-
+            <div class="container">
+                <h2>Nombre introducido con exito</h2>
+                <a href="./index.php">volver al menú</a>
+            </div>
+            <!-- echo $_SESSION['nombre']; -->
+        
 <?php
-        }
+        
+
     }
 ?>
 

@@ -19,7 +19,7 @@ session_start();
         if (isset($_SESSION['nombre'])) {
             echo "Su nombre en sesión son: ". $_SESSION['nombre'];
         }else {
-            echo "no hay sesión para ello";
+            echo "No hay sesion de <b>Nombre</b>, o ha sido borrada";
         }
 
     echo"</div> ";
@@ -28,7 +28,7 @@ session_start();
         
         echo "Su apellidos en sesión son: ". $_SESSION['apellidos'];
     }else {
-        echo "No ha introducido un apellido y no hay sesión para ello";
+        echo "No hay sesion de <b>Apellido</b>, o ha sido borrada";
     }
     echo"</div> ";
 
