@@ -1,31 +1,62 @@
-*{
-    font-family: 'Times New Roman', Times, serif;
-   
+* {
+  font-family: "Times New Roman", Times, serif;
 }
 
-body{
-    margin: 0 auto;
-    width: 100%;
+body {
+  margin: 0 auto;
+  width: 100%;
 }
-header{
-    text-align: center;
-}
-
-.container{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    padding: 75px;
+header {
+  text-align: center;
 }
 
-form{
-    padding: 35px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border: solid 3px;
-    border-radius: 12px;
-    min-width: 50%;
-    
+.container {
+  max-width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 10px;
+}
+
+form {
+  
+  padding: 35px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: space-around;
+  border: solid 3px;
+  border-radius: 12px;
+  min-width: 50%;
+}
+
+form h3 {
+  text-align: center;
+}
+
+.opcion {
+  text-align: center;
+  padding: 0 30px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+#envio,
+#borrar {
+  border-radius: 6px;
+  width: 145px;
+  height: 30px;
+}
+
+#envio {
+  background-color: rgb(21, 172, 84);
+}
+#borrar {
+  background-color: rgb(219, 68, 68);
+}
+
+#envio:hover,
+#borrar:hover {
+  font-weight: bolder;
 }
