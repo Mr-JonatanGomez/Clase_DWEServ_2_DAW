@@ -13,8 +13,13 @@ class Perro extends Animal{
         $this->colorPrincipal = $colorPrincipal;
     }
 
+public function __toString(){
+    return parent::__toString()."El nombre de este adorable animal es $this->nombre<br>
+    El color principal de su pelaje es $this->colorPrincipal<br>";
+}
+
     public function ladrar() {
-        return "Guauuu, Guauuuu!";
+        return "Guauuu, Guauuuu!<br>";
       }
 }
 
