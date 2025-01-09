@@ -16,6 +16,8 @@
             $azul=$_COOKIE["color3"];
             #echo"LA COOKIE ESTA ESTABLECIDA EN RGB $rojo, $verde, $azul";
     }
+
+
     if (isset($_REQUEST["envio"])) {
 
         
@@ -23,17 +25,7 @@
         $verde=$_REQUEST["green"] ?: 0;
         $azul=$_REQUEST["blue"] ?: 0;
         
-        /* if ($rojo=="") {
-            $rojo=255;
-        }
-
-        if ($verde=="") {
-            $verde=255;
-        }
-
-        if ($azul=="") {
-            $azul=255;
-        } */
+      
         
 
         setcookie("color1", $rojo, time()+300);
@@ -41,7 +33,9 @@
         setcookie("color3", $azul, time()+300);
 
 
-        echo"SE HA GUARDADO LA COOKIE, ES RGB $rojo, $verde, $azul";
+        /* TIENE EL PROBLEMA QUE LA COOKIE SOLO ESTA DISPONIBLE EN LA SIGUIENTE SOLICITUD HTTP
+         */
+        echo"SE HA GUARDADO LA COOKIE RGB {$_COOKIE["color1"]}, {$_COOKIE["color2"]}, {$_COOKIE["color3"]}";
     }
 
     if (isset($_REQUEST["borrar"])) {
@@ -55,11 +49,12 @@
     
     
     
-            $rojo=255;
-            $verde=255;
-            $azul=255;
-    
+            $rojo = $verde = $azul = 255;
+
+
+
             echo"SE HA BORRADO LA COOKIE y SU VALOR DEFECTO ES RGB $rojo, $verde, $azul <br>";
+            
         }
     }
     
@@ -101,7 +96,12 @@
             
                 <label for="blue">Azul</label>
                 <input type="number" name="blue" max="255" min="0" id="blue" style="width: max-content;"><br>
+                
+                <!-- <label for="color">Color</label>
+                <input type="color" name="color" value="Seleccion de Color"><br> -->
             </div>
+
+            
 
             <div class="botones">
                 <input type="submit" name="envio" id="envio" value="introducir cambio">
