@@ -29,6 +29,7 @@ if (isset($_REQUEST["buscar"])) {
 
 
 
+
 function guardarUser($archivoDatos){
     $nombre= trim($_REQUEST["nombre"]);
     $apellido1= trim($_REQUEST["apellido1"]);
@@ -133,9 +134,10 @@ function abrirArchivo($arch){
 
     <form action="#" method="post">
         <h2>MOSTRAR</h2>
-        
+    
         
         <input type="submit" name="mostrar" id="mostrar" value="MOSTRAR USERS">
+        
     </form>
 </body>
 </html>
