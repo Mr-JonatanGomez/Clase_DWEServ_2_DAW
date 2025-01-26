@@ -1,6 +1,0 @@
-jose, Gomez, gomez, 652951303, gomezillo13@gmail.com
-Sullivan, Mons, Mans, 873439, asads@mailshj.cm
-Jose Jonatan, Gomez, Rodriguez, 652951303, gomezillo13@gmail.com
-Jose Pedro, Gomez, Rodriguez, 652951303, gomezillo13@gmail.com
-Jose Pedro, Gomez, Rodriguez, 652951303, gomezillo13@gmail.com
-Jose Jonatanxzc, Gomez, Rodriguez, 652951303, gomezillo13@gmail.com

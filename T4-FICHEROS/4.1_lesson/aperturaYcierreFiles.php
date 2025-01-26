@@ -17,7 +17,7 @@
 
         if (file_exists($archivo_datos)) {
             echo "EL ARCHIVO SI EXISTE";
-            $archivo=fopen($archivo_datos,"r");
+            $archivo=fopen($archivo_datos,"r");/* ABRIMOS */
         }else{
             echo "EL ARCHIVO NO EXISTE....Creandolo ahora con fopen(), que sirve para abrir o para crear si no existe";
             //crear archivo
