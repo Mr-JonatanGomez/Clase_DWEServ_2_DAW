@@ -1,0 +1,4 @@
+Jonatan,Calle Paseo del Sol,iPhone11,3,
+Jonatan,Calle Paseo del Sol,Roomba,1,
+Jonatan,Ermita del Acompanamiento,Reloj,9,
+Jonatan,Ermita del Acompanamiento,Roomba,3,
