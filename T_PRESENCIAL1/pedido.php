@@ -37,7 +37,7 @@ if (isset($_REQUEST["enviar"])) {
             $cantidad =1;
         }
 
-    $linea=implode(",",[$nombre, $direccion, $producto, $cantidad, "\n"]);
+    $linea=implode(",",[$nombre, $direccion, $producto, $cantidad, PHP_EOL]);
 
 
 
