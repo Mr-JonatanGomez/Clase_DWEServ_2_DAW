@@ -78,13 +78,13 @@ if (isset($_REQUEST["enviar"])) {
             </label><br>
 
             <label for="producto">
-              iPhone11  <input type="radio" name="producto" value="iPhone11">
+              iPhone11  <input type="radio" name="producto" value="1">
             </label><br>
             <label for="producto">
-              Roomba  <input type="radio" name="producto" value="Roomba">
+              Roomba  <input type="radio" name="producto" value="2">
             </label><br>
             <label for="producto">
-              Reloj  <input type="radio" name="producto" value="Reloj">
+              Reloj  <input type="radio" name="producto" value="3">
             </label><br>
 
             <label for="cantidad">

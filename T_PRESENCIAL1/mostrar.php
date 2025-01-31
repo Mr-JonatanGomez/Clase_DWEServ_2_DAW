@@ -25,43 +25,55 @@
         $precioIphone=1000;
         $precioRoomba=500;
         $precioReloj=100;
+        $indice=0;
     
-/*  */
-
-print "<table>";
-echo "<tr>";
-echo "<th>NOMBRE</th><th>DIRECCION</th><th>PRODUCTO</th><th>CANTIDAD</th><th>PRECIOTOTAL</th>";
-echo "</tr>";
-
-echo "<tr>";
-for ($i=0; $i <=count($array) ; $i++) { 
-    /* SIN IMPLEMENTAR LOGICA  */
-    print "<tr><td> $numeroRand </td> <td>$i</td> <td>$result</td></tr><br>";
-    /* SIN IMPLEMENTAR LOGICA  */
-}
-
-echo "</tr>";
-
-print "</table>";
 
 
-/*  */
-        while(fgets($abrirArchivo) != false){
-            $contadorFila=0;
+        print "<table>";
+        echo "<tr>";
+        echo "<th>ID PEDIDO</th><th>NOMBRE</th><th>DIRECCION</th><th>PRODUCTO</th><th>CANTIDAD</th><th>PRECIOTOTAL</th>";
+        echo "</tr>";
 
-            $linea = fgets($abrirArchivo)."<br>";
+        while(($linea=fgets($abrirArchivo)) != false){
+            $linea=strip_tags(trim($linea));
+            $indice++;
+            #$linea = fgets($abrirArchivo)."<br>";
          
             $array = explode(",", $linea);
 
-            $nombre=$linea[0];
-            $direccion=$linea[1];
-            $producto=$linea[2];
-            $cantidad=$linea[3];
-            $precio;# implementar bien el precio segun producto
+            $nombre=$array[0];
+            $direccion=$array[1];
+            $producto=$array[2];
+            $cantidad=$array[3];
+            $precio=0;
+            switch ($producto) {
+                case 'iPhone11':
+                    $precio= $precioIphone * $cantidad;
+                    break;
+                case 'Roomba':
+                    $precio= $precioRoomba * $cantidad;
+                    break;
+                case 'Reloj':
+                    $precio= $precioReloj * $cantidad;
+                    break;
+                
+                default:
+                    $precio=0;
+                    break;
+            }
+            
 
-
+            
+            
+                /* SIN IMPLEMENTAR LOGICA  */
+                echo "<tr><td> $indice </td> <td>$nombre</td> <td>$direccion</td><td>$producto</td><td>$cantidad</td><td>$precio</td></tr>";
+                /* SIN IMPLEMENTAR LOGICA  */
+           
+            
+           
 
         }
+        print "</table>";
     }
 
 ?>
