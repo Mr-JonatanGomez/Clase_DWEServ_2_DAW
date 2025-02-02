@@ -1,0 +1,3 @@
+nombre: admin
+correo: admin@mail.com
+password: admin

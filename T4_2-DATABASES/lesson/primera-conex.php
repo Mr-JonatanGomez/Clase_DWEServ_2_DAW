@@ -10,12 +10,12 @@
 
 
 <?php
-    $conexion = $mysqli_connect("localhost", "root", "","productos")
-    or die("Fallo en la conex");
+    $conexion = mysqli_connect("localhost", "root", "","productos")
+    or die("Fallo en la conex".mysqli_connect_error());
 /* 8.	Saca los gastos totales de los clientes ordenados por edad sacado con PAGOS */
     $query= 
         "SELECT clientes.id_cliente, clientes.nombre, clientes.edad,
-        SUM(pagos.cantidad_pagada) AS Total-Pagado
+        SUM(pagos.cantidad_pagada) AS Total_Pagado
 
         FROM clientes
 
@@ -26,11 +26,19 @@
         ";
 
 
-    /* PARA HACER LA CONSULTA se requiere la conexion y la query */
-    $consulta = mysqli_query($conexion, $query);
 
+/* PARA HACER LA CONSULTA se requiere la conexion y la query */
+$consulta = mysqli_query($conexion, $query);
+/*
+ $nFilas = mysqli_num_rows($query);
 
+if ($nFilas>0) {
+    for ($i=0; $i < $nFilas ; $i++) { 
+        $fila= mysqli_fetch_assoc($query);
+    }
+}
 
+mysqli_close($conexion); */
 
 
 

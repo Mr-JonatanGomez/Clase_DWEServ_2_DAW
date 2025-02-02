@@ -38,7 +38,7 @@ or die es como el IF
             <li>mysqli_select_db() -> seleccionar database (YA NO SE USA CASI)</li>
             <li>mysqli_query() -> envia instruccion sql a DB</li>
             <li>mysqli_num_rows() -> devuelve el numero de filas</li>
-            <li>mysqli_fetch_assoc() -> convierte lo recogido en aray</li>
+            <li>mysqli_fetch_assoc() -> convierte lo recogido en array asociativo</li>
             <li>mysqli_close() -> cierra conexion</li>
         </ul>
 
