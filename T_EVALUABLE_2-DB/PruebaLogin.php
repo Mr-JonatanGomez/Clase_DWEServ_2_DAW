@@ -10,7 +10,6 @@
 if (isset($_REQUEST["cerrar-sesion"])) {
     
     unset($_SESSION["email"]);
-    unset($_SESSION["tipo_usuario"]);
     session_destroy();
     $tipoUserActual="";
 
@@ -54,7 +53,6 @@ if (isset($_REQUEST["iniciar-sesion"])) {
                     </div>';
 
             $_SESSION["email"]=$usuarioIntro;
-            $_SESSION["tipo_usuario"]= $tipoUserActual;
             
             switch ($tipoUserActual) {
                 case 'admin':
@@ -149,15 +147,15 @@ ESTO VA A SER EL LOGIN
 
         <div class="row">
 
-            <div class="navbar col-8">
+            <div class="navbar col-8 text-left">
                 <ul class="nav justify-content-start">
-                    <li class="nav-item p-3">
+                    <li class="nav-item">
                         <a class="nav-link" href="#">VER PISOS</a>
                     </li>
-                    <li class="nav-item p-3">
-                        <a class="nav-link"href="./login.php">INICIAR SESION</a>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="./login.php">INICIAR SESION</a>
                     </li>
-                    <li class="nav-item p-3">
+                    <li class="nav-item">
                         <a class="nav-link" href="#">REGISTRARSE</a>
                     </li>
                         
@@ -167,13 +165,11 @@ ESTO VA A SER EL LOGIN
 
             <div class="sesion col-4 d-flex flex-column align-items-end">
        
-                    <h6 class="user-activo text-end">
+                    <h6 class="user-activo">
     <?php
                     if (isset($_SESSION["email"])) {
                     echo "usuario: ";
                     echo $_SESSION["email"];
-                    echo "<br>tipo";
-                    echo $_SESSION["tipo_usuario"];
                     }else{
                         echo"";
                     }

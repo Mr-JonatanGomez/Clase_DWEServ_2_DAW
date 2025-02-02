@@ -19,50 +19,77 @@ function sesionFn(){
 
 </head>
 <body>
-    <header class="p-4">
-         
-      <div class="titulo d-flex flex-row justify-content-between">
-          <div class="col-8">
-            <h1>Inmobiliaria JGomez</h1>
-          </div>
-          <div class="col-4">
-
-            <h4 class="user-activo">
-<?php
-             if (isset($_SESSION["email"])) {
-              echo "user";
-              echo '$_SESSION["email"]';
-            }
-?>
-          </h4>
-          </div>
+<header class="p-4">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1>Inmobiliaria JGomez</h1>
+            </div>
 
         </div>
+        <!-- <div class="titulo d-flex flex-row justify-content-center">
+        </div> -->
 
-        <div class="navBar">
-          <ul class="nav justify-content-center">
-              <li class="nav-item">
-                <a class="nav-link" href="#">VER PISOS</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="./login.php">INICIAR SESION</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">REGISTRARSE</a>
-              </li>
-              <!-- <li class="nav-item">
-                <a class="nav-link" href="#">CERRAR SESION</a>
-              </li> -->
-              
-            </ul>
+        <div class="row">
+
+            <div class="navbar col-8">
+                <ul class="nav justify-content-start">
+                    <li class="nav-item p-3">
+                        <a class="nav-link" href="#">VER PISOS</a>
+                    </li>
+                    <li class="nav-item p-3">
+                        <a class="nav-link"href="./login.php">INICIAR SESION</a>
+                    </li>
+                    <li class="nav-item p-3">
+                        <a class="nav-link" href="#">REGISTRARSE</a>
+                    </li>
+                        
+                        
+                </ul>
+            </div>
+
+            <div class="sesion col-4 d-flex flex-column align-items-end">
+       
+                    <h6 class="user-activo">
+    <?php
+                    if (isset($_SESSION["email"])) {
+                    echo "usuario: ";
+                    echo $_SESSION["email"];
+                    }else{
+                        echo"";
+                    }
+    ?>
+                    </h6>
+    <?php
+                    if (isset($_SESSION["email"])) {
+                    ?>
+                    <form action="" method="post">
+    
+    
+                        <input type="submit" class="btn btn-danger" name="cerrar-sesion" id="cerrar-sesion" value="cerrar-sesion">
+                    </form>
+                    <?php
+                    }else{
+                        echo"";
+                    }
+    ?>               
+
+            </div>
         </div>
-            
-        
+
     </header>
 
 
 
-    <main class="container-lg"></main>
+    <main class="container-lg">
+<?php
+  /* pintaremos DINAMICAMENTE CADA PISO */
+  $conexion
+
+
+
+?>
+
+    </main>
 
 
 
