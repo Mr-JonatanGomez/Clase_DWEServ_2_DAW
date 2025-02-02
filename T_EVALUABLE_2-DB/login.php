@@ -6,11 +6,13 @@
     $passwordIntro;
     $passwwordDB;
     $tipoUserActual;
+    $idUsuarioActual;
 
 if (isset($_REQUEST["cerrar-sesion"])) {
     
     unset($_SESSION["email"]);
     unset($_SESSION["tipo_usuario"]);
+    unset($_SESSION["id_usuario"]);
     session_destroy();
     $tipoUserActual="";
 
@@ -55,6 +57,7 @@ if (isset($_REQUEST["iniciar-sesion"])) {
 
             $_SESSION["email"]=$usuarioIntro;
             $_SESSION["tipo_usuario"]= $tipoUserActual;
+            $_SESSION["id_usuario"]= $idUsuarioActual;
             
             switch ($tipoUserActual) {
                 case 'admin':

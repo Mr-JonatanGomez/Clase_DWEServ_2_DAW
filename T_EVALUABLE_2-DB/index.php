@@ -83,9 +83,47 @@ function sesionFn(){
     <main class="container-lg">
 <?php
   /* pintaremos DINAMICAMENTE CADA PISO */
-  $conexion
+  $conexion = mysqli_connect("Localhost", "root", "", "inmobiliaria_jonatangomez");
+  
+  if (!$conexion) {
+    die("ERROR DE CONEXION". mysqli_connect_error());
+  }
 
-
+  echo'
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Poblacion</th>
+      <th scope="col">metros²</th>
+      <th scope="col">Precio</th>
+      <th scope="col">Direccion</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  ';
+  
+  echo '<tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td colspan="2">Larry the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
+    '; 
 
 ?>
 

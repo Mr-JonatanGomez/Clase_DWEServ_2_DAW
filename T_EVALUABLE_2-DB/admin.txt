@@ -1,3 +1,18 @@
+DATABASE root "";
+
 nombre: admin
 correo: admin@mail.com
 password: admin
+tipo: admin
+
+jonatan:
+jonatan@mail.com / jonatan123
+vendedor
+
+Eduardo
+edu@mail.com / edu123
+vendedor
+
+Alejandra
+ale@mail.com / ale123
+vendedor
