@@ -49,4 +49,6 @@ footer{
 }
 
 
-
+.table tbody tr {
+    height: 85px;
+}

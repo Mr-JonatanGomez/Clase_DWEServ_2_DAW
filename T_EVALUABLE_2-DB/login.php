@@ -14,7 +14,7 @@ if (isset($_REQUEST["cerrar-sesion"])) {
     unset($_SESSION["tipo_usuario"]);
     unset($_SESSION["id_usuario"]);
     session_destroy();
-    $tipoUserActual="";
+    
 
     /* para enviar al menu inicial al cerrar sesion */
     header("Location: index.php"); // o la página que desees
@@ -22,93 +22,100 @@ if (isset($_REQUEST["cerrar-sesion"])) {
 }
 
 if (isset($_REQUEST["iniciar-sesion"])) {
-/* 
-    BUSCAMOS USER EN DATABASE
-    SI EXISTE-LANZAMOS SW y al MENU CORRESPONDIENTE (if admin, compr, vend)
-*/
-    $conexion = mysqli_connect("localhost","root","","inmobiliaria_jonatangomez");
-
-    if (!$conexion) {
-        die("Hubo un error de conexion. ".mysqli_connect_error());
-    }
-
-    $usuarioIntro=trim(strip_tags($_REQUEST["email"]));
-    $passwordIntro=trim(strip_tags($_REQUEST["password"]));
-
-    $query="SELECT correo, password, tipo_usuario FROM usuarios WHERE correo = '$usuarioIntro';";
-    $resultadoQuery= mysqli_query($conexion,$query);
-
-
-    if (mysqli_num_rows($resultadoQuery)>0) {
-        $userEncontrado=true;
-        ($row=mysqli_fetch_assoc($resultadoQuery));
-            $tipoUserActual= $row["tipo_usuario"];
-
-        if ($row['password'] == $passwordIntro) {
-            
-
-            echo mysqli_num_rows($resultadoQuery). "numeroFIlas";
-          
-            echo '<div class="d-flex justify-content-center">
-                        <div class="alert alert-success w-50 text-center" role="alert">
-                            <b>USUARIO LOGUEADO CORRECTAMENTE</b>
+    
+    if (isset($_SESSION["email"])&& isset($_SESSION["tipo_usuario"])&& isset($_SESSION["id_usuario"])) {
+        echo'<div class="d-flex justify-content-center">
+                        <div class="alert alert-warning w-50 text-center" role="alert">
+                            <b>TIENES QUE CERRAR SESION CON EL USUARIO ANTERIOR, ANTES DE ABRIR UNA NUEVA</b>
                         </div>
                     </div>';
+    } else{ 
 
-            $_SESSION["email"]=$usuarioIntro;
-            $_SESSION["tipo_usuario"]= $tipoUserActual;
-            $_SESSION["id_usuario"]= $idUsuarioActual;
+        $conexion = mysqli_connect("localhost","root","","inmobiliaria_jonatangomez");
+
+        if (!$conexion) {
+            die("Hubo un error de conexion. ".mysqli_connect_error());
+        }
+
+        $usuarioIntro=trim(strip_tags($_REQUEST["email"]));
+        $passwordIntro=trim(strip_tags($_REQUEST["password"]));
+
+        $query="SELECT correo, password, tipo_usuario, id_usuario FROM usuarios WHERE correo = '$usuarioIntro';";
+        $resultadoQuery= mysqli_query($conexion,$query);
+
+
+        if (mysqli_num_rows($resultadoQuery)>0) {
+            $userEncontrado=true;
+            ($row=mysqli_fetch_assoc($resultadoQuery));
+                $tipoUserActual= $row["tipo_usuario"];
+                $idUsuarioActual= $row["id_usuario"];
+
+            if ($row['password'] == $passwordIntro) {
+                
+
+                echo mysqli_num_rows($resultadoQuery). "numeroFIlas";
             
-            switch ($tipoUserActual) {
-                case 'admin':
-                    header("Location: menuAdmin.php");
-                    exit;
-                    break;
+                echo '<div class="d-flex justify-content-center">
+                            <div class="alert alert-success w-50 text-center" role="alert">
+                                <b>USUARIO LOGUEADO CORRECTAMENTE</b>
+                            </div>
+                        </div>';
 
-                case 'comprador':
-                    header("Location: menuAdmin.php");
-                    exit;
-                    break;
+                $_SESSION["email"]=$usuarioIntro;
+                $_SESSION["tipo_usuario"]= $tipoUserActual;
+                $_SESSION["id_usuario"]= $idUsuarioActual;
+                
+                switch ($tipoUserActual) {
+                    case 'admin':
+                        header("Location: menuAdmin.php");
+                        exit;
+                        break;
 
-                case 'vendedor':
-                    header("Location: menuAdmin.php");
-                    exit;
-                    break;    
+                    case 'comprador':
+                        header("Location: index.php");
+                        exit;
+                        break;
 
-                default:
-                    echo"Error de tipo de user";
-                    break;
+                    case 'vendedor':
+                        header("Location: index.php");
+                        exit;
+                        break;    
+
+                    default:
+                        echo"Error de tipo de user";
+                        break;
+                }
+
+
+
+
+
+            }else{
+                echo    '<div class="d-flex justify-content-center">
+                            <div class="alert alert-danger w-50 text-center" role="alert">
+                                <b>El password es incorrecto</b>
+                            </div>
+                        </div>';
             }
+            
 
-
-
-
-
+            
         }else{
             echo    '<div class="d-flex justify-content-center">
-                        <div class="alert alert-danger w-50 text-center" role="alert">
-                            <b>El password es incorrecto</b>
-                        </div>
-                    </div>';
+                            <div class="alert alert-danger w-50 text-center" role="alert">
+                                Este <b>USUARIO no existe</b> en la DataBase,<br><b>REGISTRESE</b>, o compruebe si lo ha introducido mal</b>
+                            </div>
+                        </div>';
         }
-        
 
-        
-    }else{
-        echo    '<div class="d-flex justify-content-center">
-                        <div class="alert alert-danger w-50 text-center" role="alert">
-                            Este <b>USUARIO no existe</b> en la DataBase,<br><b>REGISTRESE</b>, o compruebe si lo ha introducido mal</b>
-                        </div>
-                    </div>';
-    }
-
-    if ($userEncontrado && $passwordCorrecta) {
-        
-    }
+        if ($userEncontrado && $passwordCorrecta) {
+            
+        }
 
 
 
-    mysqli_close($conexion);
+        mysqli_close($conexion);
+     } 
 }
     
     
@@ -155,14 +162,14 @@ ESTO VA A SER EL LOGIN
             <div class="navbar col-8">
                 <ul class="nav justify-content-start">
                     <li class="nav-item p-3">
-                        <a class="nav-link" href="#">VER PISOS</a>
+                        <a class="nav-link" href="./index.php">VER PISOS</a>
                     </li>
-                    <li class="nav-item p-3">
+                    <!-- <li class="nav-item p-3">
                         <a class="nav-link"href="./login.php">INICIAR SESION</a>
                     </li>
                     <li class="nav-item p-3">
                         <a class="nav-link" href="#">REGISTRARSE</a>
-                    </li>
+                    </li> -->
                         
                         
                 </ul>
@@ -175,7 +182,7 @@ ESTO VA A SER EL LOGIN
                     if (isset($_SESSION["email"])) {
                     echo "usuario: ";
                     echo $_SESSION["email"];
-                    echo "<br>tipo";
+                    echo "<br>tipo: ";
                     echo $_SESSION["tipo_usuario"];
                     }else{
                         echo"";

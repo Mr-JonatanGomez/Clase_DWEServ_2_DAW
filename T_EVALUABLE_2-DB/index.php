@@ -1,12 +1,18 @@
 <?php
 session_start();
-function sesionFn(){
-  if (isset($_SESSION["email"])) {
-    echo "user";
-    echo '$_SESSION["email"]';
-  }
-}
 
+if (isset($_REQUEST["cerrar-sesion"])) {
+    
+  unset($_SESSION["email"]);
+  unset($_SESSION["tipo_usuario"]);
+  unset($_SESSION["id_usuario"]);
+  session_destroy();
+  /* $tipoUserActual=""; */
+
+  /* para enviar al menu inicial al cerrar sesion */
+  header("Location: index.php"); // o la página que desees
+  exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -33,9 +39,7 @@ function sesionFn(){
 
             <div class="navbar col-8">
                 <ul class="nav justify-content-start">
-                    <li class="nav-item p-3">
-                        <a class="nav-link" href="#">VER PISOS</a>
-                    </li>
+                  
                     <li class="nav-item p-3">
                         <a class="nav-link"href="./login.php">INICIAR SESION</a>
                     </li>
@@ -49,12 +53,14 @@ function sesionFn(){
 
             <div class="sesion col-4 d-flex flex-column align-items-end">
        
-                    <h6 class="user-activo">
+                    <h6 class="user-activo text-end">
     <?php
                     if (isset($_SESSION["email"])) {
-                    echo "usuario: ";
-                    echo $_SESSION["email"];
-                    }else{
+                      echo "usuario: ";
+                      echo $_SESSION["email"];
+                      echo "<br>tipo: ";
+                      echo $_SESSION["tipo_usuario"];
+                      }else{
                         echo"";
                     }
     ?>
@@ -101,29 +107,50 @@ function sesionFn(){
       <th scope="col"></th>
     </tr>
   </thead>
+  <tbody>
   ';
+
+  $query="SELECT id_piso, poblacion, metros, precio, calle, numero, piso, puerta FROM pisos";
+  $resultadoQuery= mysqli_query($conexion, $query);
+
   
-  echo '<tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
-    '; 
+  if (mysqli_num_rows($resultadoQuery)>0) {
+    while ($row=mysqli_fetch_assoc($resultadoQuery)) {
+        #obtenemos var y pintamos cada fila por su row[campo]
+        echo'
+        <tr>
+      <th scope="row">'.$row['id_piso'].'</th>';
+      echo'<td>'.$row['poblacion'].'</td>';
+      echo'<td>'.$row['metros'].'</td>';
+      echo'<td>'.$row['precio'].'</td>';
+
+      echo'<td> Calle '.$row['calle'].
+          ' Nº '.$row['numero'].
+          ' Piso '.$row['piso'].'º'.
+          $row['puerta'].'</td>';
+
+      if (isset($_SESSION["tipo_usuario"])&& $_SESSION["tipo_usuario"] =="comprador") {
+        
+        echo'
+        <td>
+        <form action="" method="post">
+            <input type="submit" class="btn btn-success" name="comprar" id="comprar" value="COMPRAR">
+        </form>
+        </td>
+        ';
+      }
+      
+
+    
+        
+        
+    }
+  }
+
+
+  echo '</tbody></table>';
+
+  
 
 ?>
 
