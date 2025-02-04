@@ -117,6 +117,8 @@ if (isset($_REQUEST["iniciar-sesion"])) {
         mysqli_close($conexion);
      } 
 }
+
+if(isset($_REQUEST["registro"]))
     
     
     ?>
@@ -208,7 +210,7 @@ ESTO VA A SER EL LOGIN
 
     </header>
 
-<main class="container-lg">
+<main class="container-lg container-forms">
 
     <form class="standarForm" action="" method="post">
     
@@ -236,7 +238,7 @@ ESTO VA A SER EL LOGIN
         <div class="mt-3 row justify-content-center">
             
             <div class="col-sm-8 d-flex justify-content-center">
-                <a class="form-control btn btn-primary" href="./registro.php">Registrarse</a>
+                <a class="form-control btn btn-primary" href="./registro.php">Registrarse e Iniciar Sesion</a>
             </div>
         </div>
     

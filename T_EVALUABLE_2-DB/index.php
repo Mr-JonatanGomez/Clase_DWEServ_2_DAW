@@ -44,7 +44,7 @@ if (isset($_REQUEST["cerrar-sesion"])) {
                         <a class="nav-link"href="./login.php">INICIAR SESION</a>
                     </li>
                     <li class="nav-item p-3">
-                        <a class="nav-link" href="#">REGISTRARSE</a>
+                        <a class="nav-link" href="./registro.php">REGISTRARSE</a>
                     </li>
                         
                         
