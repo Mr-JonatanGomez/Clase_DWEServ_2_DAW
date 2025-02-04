@@ -123,7 +123,8 @@ if(isset($_REQUEST["registro"])){
 
     $nombre = trim(strip_tags($_REQUEST["nombre"]));
     /* POR AQUI ME HE QUEDADO */
-    $nombre = mysqli_real_escape_string()
+    $nombre = mysqli_real_escape_string($c,$c);
+
 
 
 }
