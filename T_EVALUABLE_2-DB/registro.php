@@ -120,10 +120,24 @@ if(isset($_REQUEST["registro"])){
     if (!$conexion) {
         die("ERROR DE CONEXION". mysqli_connect_error());
     }
+    if (condition) {
+        # code...
+    
+    
+    }else {
+        
+        /* POR AQUI ME HE QUEDADO */
+        $nombre = mysqli_real_escape_string($conexion,$_REQUEST["nombre"]);
+        $email = mysqli_real_escape_string($conexion,$_REQUEST["nombre"]);
+        $password = mysqli_real_escape_string($conexion,$_REQUEST["password"]);
+        $tipo = mysqli_real_escape_string($conexion,$_REQUEST["tipo"]);
+    
+        #email, password, tipo
 
-    $nombre = trim(strip_tags($_REQUEST["nombre"]));
-    /* POR AQUI ME HE QUEDADO */
-    $nombre = mysqli_real_escape_string($c,$c);
+
+    }
+
+    
 
 
 
@@ -225,37 +239,43 @@ if(isset($_REQUEST["registro"])){
     
         <h1 class="titulo text-success text-center mb-3">REGISTRO</h1>
         <div class="mb-3 row">
-            <label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="nombre" name="nombre">
+            <label for="nombre" class="col-sm-3 col-form-label">Nombre</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="nombre" name="nombre" required>
             </div>
         </div>
 
         <div class="mb-3 row">
-            <label for="email" class="col-sm-2 col-form-label">Email</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="email" name="email">
+            <label for="email" class="col-sm-3 col-form-label">Email</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="email" name="email" required>
             </div>
         </div>
 
         <div class="mb-3 row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-            <div class="col-sm-10">
-                <input type="password" class="form-control" id="inputPassword" name="password">
+            <label for="inputPassword" class="col-sm-3 col-form-label">Password</label>
+            <div class="col-sm-8">
+                <input type="password" class="form-control" id="inputPassword" name="password" required>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="inputPassword" class="col-sm-3 col-form-label">Confirmar Password</label>
+            <div class="col-sm-8">
+                <input type="password" class="form-control" id="inputPassword" name="password" required>
             </div>
         </div>
 
         <div class="mb-3 row">
-            <label for="tipo" class="col-sm-2 col-form-label">Tipo</label>
-            <div class="col-sm-10 d-flex align-items-center justify-content-around">
-                <label for="comprador">comprador  <input type="radio" id="comprador" name="tipo"></label>
-                <label for="vendedor">vendedor  <input type="radio" id="vendedor" name="tipo"></label>
+            <label for="tipo" class="col-sm-4 col-form-label">Tipo</label>
+            <div class="col-sm-8 d-flex align-items-center justify-content-around">
+                <label for="comprador">comprador  <input type="radio" id="comprador" name="tipo" value="comprador" required></label>
+                <label for="vendedor">vendedor  <input type="radio" id="vendedor" name="tipo" value="vendedor"></label>
             </div>
         </div>
         
         <div class="mt-4 row justify-content-center">
             
-            <div class="col-sm-8 d-flex justify-content-center">
+            <div class="col-sm-6 col-md-8 d-flex justify-content-center">
             <input type="submit" class="form-control btn btn-primary" id="registro" name="registro" value="Registrarse e Iniciar Sesion">
             </div>
         </div>
