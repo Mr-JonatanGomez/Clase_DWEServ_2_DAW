@@ -119,11 +119,6 @@ if(isset($_REQUEST["registro"])){
     $conexion = mysqli_connect("localhost","root","", "inmobiliaria_jonatangomez");
     if (!$conexion) {
         die("ERROR DE CONEXION". mysqli_connect_error());
-    }
-    if (condition) {
-        # code...
-    
-    
     }else {
         
         /* POR AQUI ME HE QUEDADO */
@@ -132,7 +127,8 @@ if(isset($_REQUEST["registro"])){
         $password = mysqli_real_escape_string($conexion,$_REQUEST["password"]);
         $tipo = mysqli_real_escape_string($conexion,$_REQUEST["tipo"]);
     
-        #email, password, tipo
+        
+        
 
 
     }
