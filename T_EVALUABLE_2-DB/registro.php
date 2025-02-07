@@ -123,12 +123,24 @@ if(isset($_REQUEST["registro"])){
         
         /* POR AQUI ME HE QUEDADO */
         $nombre = mysqli_real_escape_string($conexion,$_REQUEST["nombre"]);
-        $email = mysqli_real_escape_string($conexion,$_REQUEST["nombre"]);
+        $email = mysqli_real_escape_string($conexion,$_REQUEST["email"]);
         $password = mysqli_real_escape_string($conexion,$_REQUEST["password"]);
         $tipo = mysqli_real_escape_string($conexion,$_REQUEST["tipo"]);
     
-        
-        
+        $query= "   INSERT INTO usuarios 
+                            (nombre, correo, password, tipo_usuario)
+                    VALUES ('$nombre','$email','$password','$tipo');
+                ";
+        if (mysqli_query($conexion,$query)) {
+            echo '<div class="d-flex justify-content-center">
+                            <div class="alert alert-success w-50 text-center" role="alert">
+                                <b>TE HAS REGISTRADO EN NUESTRA DATABASE</b>
+                            </div>
+                        </div>';
+        } else{
+
+
+        }
 
 
     }

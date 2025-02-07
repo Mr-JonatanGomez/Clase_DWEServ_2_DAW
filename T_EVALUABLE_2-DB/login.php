@@ -61,10 +61,24 @@ if (isset($_REQUEST["iniciar-sesion"])) {
                             </div>
                         </div>';
 
+
+                       /*  echo '<script>
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "USUARIO LOGUEADO CORRECTAMENTE",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    </script>';  */  
+
                 $_SESSION["email"]=$usuarioIntro;
                 $_SESSION["tipo_usuario"]= $tipoUserActual;
                 $_SESSION["id_usuario"]= $idUsuarioActual;
                 
+                
+                    /*  */ 
+
                 switch ($tipoUserActual) {
                     case 'admin':
                         header("Location: menuAdmin.php");
