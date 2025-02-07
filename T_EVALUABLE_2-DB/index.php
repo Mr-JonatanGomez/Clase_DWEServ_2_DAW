@@ -1,4 +1,6 @@
 <?php
+
+
 session_start();
 
 if (isset($_REQUEST["cerrar-sesion"])) {
@@ -39,14 +41,40 @@ if (isset($_REQUEST["cerrar-sesion"])) {
 
             <div class="navbar col-8">
                 <ul class="nav justify-content-start">
-                  
+<?php
+
+              if (!isset($_SESSION["email"])&& !isset($_SESSION["tipo_usuario"])&& !isset($_SESSION["id_usuario"])) {
+                echo'
+                
+                <li class="nav-item p-3">
+                    <a class="nav-link"href="./login.php">INICIAR SESION</a>
+                </li>
+                
+                <li class="nav-item p-3">
+                    <a class="nav-link" href="./registro.php">REGISTRARSE</a>
+                </li>
+                ';
+              }else{
+                
+              }
+
+?>
+                    
+<?php
+if (isset($_SESSION["tipo_usuario"])&& $_SESSION["tipo_usuario"] =="vendedor") {
+        
+  echo'
                     <li class="nav-item p-3">
-                        <a class="nav-link"href="./login.php">INICIAR SESION</a>
+                        <a class="nav-link" href="./registroPiso.php">REGISTRAR PISO</a>
                     </li>
-                    <li class="nav-item p-3">
-                        <a class="nav-link" href="./registro.php">REGISTRARSE</a>
-                    </li>
-                        
+  ';
+}
+
+
+
+
+
+?>                        
                         
                 </ul>
             </div>
@@ -139,11 +167,6 @@ if (isset($_REQUEST["cerrar-sesion"])) {
         </td>
         ';
       }
-      
-
-    
-        
-        
     }
   }
 

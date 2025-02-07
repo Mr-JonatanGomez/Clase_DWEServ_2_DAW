@@ -24,10 +24,13 @@ if (isset($_REQUEST["cerrar-sesion"])) {
 if (isset($_REQUEST["iniciar-sesion"])) {
     
     if (isset($_SESSION["email"])&& isset($_SESSION["tipo_usuario"])&& isset($_SESSION["id_usuario"])) {
-        echo'<div class="d-flex justify-content-center">
-                        <div class="alert alert-warning w-50 text-center" role="alert">
+        echo'<div class="alertas d-flex justify-content-center">
+                        <div class="alert alert-warning w-50 text-center d-flex justify-content-around" role="alert">
                             <b>TIENES QUE CERRAR SESION CON EL USUARIO ANTERIOR, ANTES DE ABRIR UNA NUEVA</b>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
                         </div>
+                       
                     </div>';
     } else{ 
 
@@ -55,9 +58,10 @@ if (isset($_REQUEST["iniciar-sesion"])) {
 
                 echo mysqli_num_rows($resultadoQuery). "numeroFIlas";
             
-                echo '<div class="d-flex justify-content-center">
-                            <div class="alert alert-success w-50 text-center" role="alert">
+                echo '<div class="alertas d-flex justify-content-center">
+                            <div class="alert alert-success w-50 text-center d-flex justify-content-around" role="alert">
                                 <b>USUARIO LOGUEADO CORRECTAMENTE</b>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         </div>';
 
@@ -105,9 +109,10 @@ if (isset($_REQUEST["iniciar-sesion"])) {
 
 
             }else{
-                echo    '<div class="d-flex justify-content-center">
-                            <div class="alert alert-danger w-50 text-center" role="alert">
+                echo    '<div class="alertas d-flex justify-content-center">
+                            <div class="alert alert-danger w-50 text-center d-flex justify-content-around" role="alert">
                                 <b>El password es incorrecto</b>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         </div>';
             }
@@ -115,9 +120,10 @@ if (isset($_REQUEST["iniciar-sesion"])) {
 
             
         }else{
-            echo    '<div class="d-flex justify-content-center">
-                            <div class="alert alert-danger w-50 text-center" role="alert">
+            echo    '<div class="alertas d-flex justify-content-center">
+                            <div class="alert alert-danger w-50 text-center d-flex justify-content-around" role="alert">
                                 Este <b>USUARIO no existe</b> en la DataBase,<br><b>REGISTRESE</b>, o compruebe si lo ha introducido mal</b>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         </div>';
         }

@@ -17,13 +17,15 @@ if (isset($_REQUEST["cerrar-sesion"])) {
 
 
 
-if (isset($_REQUEST["registro-inicio"])) {
+/* if (isset($_REQUEST["registro-inicio"])) {
     #re-aprovechar inicio??
     if (isset($_SESSION["email"])&& isset($_SESSION["tipo_usuario"])&& isset($_SESSION["id_usuario"])) {
-        echo'<div class="d-flex justify-content-center">
-                        <div class="alert alert-warning w-50 text-center" role="alert">
+        echo'<div class="alertas d-flex justify-content-center">
+                        <div class="alert alert-warning w-50 text-center d-flex justify-content-around" role="alert">
                             <b>TIENES QUE CERRAR SESION CON EL USUARIO ANTERIOR, ANTES DE ABRIR UNA NUEVA</b>
-                        </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        
+                            </div>
                     </div>';
     } else{ 
 
@@ -51,9 +53,11 @@ if (isset($_REQUEST["registro-inicio"])) {
 
                 echo mysqli_num_rows($resultadoQuery). "numeroFIlas";
             
-                echo '<div class="d-flex justify-content-center">
-                            <div class="alert alert-success w-50 text-center" role="alert">
+                echo '<div class="alertas d-flex justify-content-center">
+                            <div class="alert alert-success w-50 text-center d-flex justify-content-around" role="alert">
                                 <b>USUARIO LOGUEADO CORRECTAMENTE</b>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
                             </div>
                         </div>';
 
@@ -87,9 +91,11 @@ if (isset($_REQUEST["registro-inicio"])) {
 
 
             }else{
-                echo    '<div class="d-flex justify-content-center">
-                            <div class="alert alert-danger w-50 text-center" role="alert">
+                echo    '<div class="alertas d-flex justify-content-center">
+                            <div class="alert alert-danger w-50 text-center d-flex justify-content-around" role="alert">
                                 <b>El password es incorrecto</b>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
                             </div>
                         </div>';
             }
@@ -97,10 +103,12 @@ if (isset($_REQUEST["registro-inicio"])) {
 
             
         }else{
-            echo    '<div class="d-flex justify-content-center">
-                            <div class="alert alert-danger w-50 text-center" role="alert">
+            echo    '<div class="alertas d-flex justify-content-center">
+                            <div class="alert alert-danger w-50 text-center d-flex justify-content-around" role="alert">
                                 Este <b>USUARIO no existe</b> en la DataBase,<br><b>REGISTRESE</b>, o compruebe si lo ha introducido mal</b>
-                            </div>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+                                </div>
                         </div>';
         }
 
@@ -112,7 +120,7 @@ if (isset($_REQUEST["registro-inicio"])) {
 
         mysqli_close($conexion);
      } 
-}
+} */
 
 
 if(isset($_REQUEST["registro"])){
@@ -121,23 +129,42 @@ if(isset($_REQUEST["registro"])){
         die("ERROR DE CONEXION". mysqli_connect_error());
     }else {
         
-        /* POR AQUI ME HE QUEDADO */
-        $nombre = mysqli_real_escape_string($conexion,$_REQUEST["nombre"]);
-        $email = mysqli_real_escape_string($conexion,$_REQUEST["email"]);
+        /* COMPROBAR PASSWORD IGUAL */
         $password = mysqli_real_escape_string($conexion,$_REQUEST["password"]);
-        $tipo = mysqli_real_escape_string($conexion,$_REQUEST["tipo"]);
+        $password2 = mysqli_real_escape_string($conexion,$_REQUEST["password2"]);
+        if ($password != $password2) {
+            echo '<div class="alertas d-flex justify-content-around align-items-center pt-3">
+                    <div class="alert alert-danger w-50 text-center d-flex justify-content-around" role="alert">
+                        <b>LAS CONTRASEÑAS NO COINCIDEN</b>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>';
+        
+        }else {
+            
+
+            $nombre = mysqli_real_escape_string($conexion,$_REQUEST["nombre"]);
+            $email = mysqli_real_escape_string($conexion,$_REQUEST["email"]);
+            $tipo = mysqli_real_escape_string($conexion,$_REQUEST["tipo"]);
+        
+            $query= "   INSERT INTO usuarios 
+                                (nombre, correo, password, tipo_usuario)
+                        VALUES ('$nombre','$email','$password','$tipo');
+                    ";
+            if (mysqli_query($conexion,$query)) {
+                echo '<div class="alertas d-flex justify-content-center">
+                                <div class="alert alert-success w-50 text-center d-flex justify-content-around" role="alert">
+                                    <b>TE HAS REGISTRADO EN NUESTRA DATABASE</b>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+                                </div>
+                            </div>';
     
-        $query= "   INSERT INTO usuarios 
-                            (nombre, correo, password, tipo_usuario)
-                    VALUES ('$nombre','$email','$password','$tipo');
-                ";
-        if (mysqli_query($conexion,$query)) {
-            echo '<div class="d-flex justify-content-center">
-                            <div class="alert alert-success w-50 text-center" role="alert">
-                                <b>TE HAS REGISTRADO EN NUESTRA DATABASE</b>
-                            </div>
-                        </div>';
-        } else{
+                            
+            } else{
+                echo "Error al realizar el insert con la query:". $query. mysqli_error($conexion);
+    
+            }
 
 
         }
@@ -151,6 +178,9 @@ if(isset($_REQUEST["registro"])){
 
 }
     
+
+
+
 ?>
 
 
@@ -195,7 +225,7 @@ if(isset($_REQUEST["registro"])){
             <div class="navbar col-8">
                 <ul class="nav justify-content-start">
                     <li class="nav-item p-3">
-                        <a class="nav-link" href="./index.php">VER PISOS</a>
+                        <a class="nav-link" href="./index.php">VOLVER</a>
                     </li>
                     <!-- <li class="nav-item p-3">
                         <a class="nav-link"href="./login.php">INICIAR SESION</a>
@@ -269,7 +299,7 @@ if(isset($_REQUEST["registro"])){
         <div class="mb-3 row">
             <label for="inputPassword" class="col-sm-3 col-form-label">Confirmar Password</label>
             <div class="col-sm-8">
-                <input type="password" class="form-control" id="inputPassword" name="password" required>
+                <input type="password" class="form-control" id="inputPassword2" name="password2" required>
             </div>
         </div>
 

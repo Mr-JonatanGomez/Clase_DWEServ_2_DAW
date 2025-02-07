@@ -10,7 +10,9 @@ header{
     background: rgb(222,252,215);
     background: linear-gradient(180deg, rgba(222,252,215,1) 0%, rgba(222,252,215,1) 25%, rgba(222,252,215,0.7484243697478992) 50%, rgba(222,252,215,0.499124649859944) 75%, rgba(222,252,215,0) 100%);
 }
-
+.alertas{
+    background: rgb(222,252,215);
+}
 main{
     display: flex;
     flex-grow: 1;
