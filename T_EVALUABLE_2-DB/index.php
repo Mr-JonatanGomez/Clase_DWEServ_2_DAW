@@ -132,11 +132,11 @@ if (isset($_SESSION["tipo_usuario"])&& $_SESSION["tipo_usuario"] =="vendedor") {
   <table class="table">
   <thead>
     <tr>
-      <th scope="col">id</th>
+      <th class="d-none d-md-table-cell scope="col">id</th>
       <th scope="col">Poblacion</th>
       <th scope="col">metros²</th>
       <th scope="col">Precio</th>
-      <th scope="col">Direccion</th>
+      <th scope="col" class="d-none d-md-table-cell">Direccion</th>
       <th scope="col"></th>
     </tr>
   </thead>
@@ -152,12 +152,12 @@ if (isset($_SESSION["tipo_usuario"])&& $_SESSION["tipo_usuario"] =="vendedor") {
         #obtenemos var y pintamos cada fila por su row[campo]
         echo'
         <tr>
-      <th scope="row">'.$row['id_piso'].'</th>';
+      <th class="d-none d-md-table-cell scope="row">'.$row['id_piso'].'</th>';
       echo'<td>'.$row['poblacion'].'</td>';
       echo'<td>'.$row['metros'].'</td>';
       echo'<td>'.$row['precio'].'</td>';
 
-      echo'<td> Calle '.$row['calle'].
+      echo '<td class="d-none d-md-table-cell">Calle '.$row['calle'].
           ' Nº '.$row['numero'].
           ' Piso '.$row['piso'].'º'.
           $row['puerta'].'</td>';
@@ -167,7 +167,7 @@ if (isset($_SESSION["tipo_usuario"])&& $_SESSION["tipo_usuario"] =="vendedor") {
         echo'
         <td>
         <form action="" method="post">
-            <input type="submit" class="btn btn-success" name="comprar" id="comprar" value="COMPRAR">
+            <input type="submit" class="btn btn-success" name="comprar" id="comprar" value="BUY">
         </form>
         </td>
         ';
