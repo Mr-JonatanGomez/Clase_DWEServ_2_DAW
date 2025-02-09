@@ -154,13 +154,13 @@ if(isset($_REQUEST["registro"])){
             if (mysqli_query($conexion,$query)) {
                 echo '<div class="alertas d-flex justify-content-center">
                                 <div class="alert alert-success w-50 text-center d-flex justify-content-around" role="alert">
-                                    <b>TE HAS REGISTRADO EN NUESTRA DATABASE</b>
+                                    <b>REGISTRO EXITOSO EN LA DATABASE</b>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 
                                 </div>
                             </div>';
     
-                            
+                         
             } else{
                 echo "Error al realizar el insert con la query:". $query. mysqli_error($conexion);
     

@@ -34,9 +34,9 @@ footer{
 }
 
 .standarForm{
+    border: groove rgb(222,252,215) 4px;
     
     margin: 5% 0;
-    border: groove rgb(222,252,215) 4px;
     border-radius: 16px;
     max-width: 600px;
     width: 100%;
@@ -44,6 +44,57 @@ footer{
     min-width: fit-content;
     padding: 30px;
     
+}
+
+.newForm{
+    border: groove rgb(25, 135, 84) 4px;
+    margin: 5% 0;
+    border-radius: 16px;
+    max-width: 600px;
+    width: 100%;
+    max-height: fit-content;
+    min-width: fit-content;
+    padding: 30px;
+}
+.deleteForm{
+    border: groove rgb(220, 53, 69) 4px;
+    margin: 5% 0;
+    border-radius: 16px;
+    max-width: 600px;
+    width: 100%;
+    max-height: fit-content;
+    min-width: fit-content;
+    padding: 30px;
+}
+.modForm{
+    border: groove rgb(255, 193, 7) 4px;
+    margin: 5% 0;
+    border-radius: 16px;
+    max-width: 600px;
+    width: 100%;
+    max-height: fit-content;
+    min-width: fit-content;
+    padding: 30px;
+}
+.searchForm{
+    border: groove rgb(108, 117, 125) 4px;
+    margin: 5% 0;
+    border-radius: 16px;
+    max-width: 600px;
+    width: 100%;
+    max-height: fit-content;
+    min-width: fit-content;
+    padding: 30px;
+}
+.showForm{
+    border: groove rgb(13, 110, 253) 4px;
+    margin: 5% 0;
+    border-radius: 16px;
+    max-width: 600px;
+    width: 100%;
+    max-height: fit-content;
+    min-width: fit-content;
+    padding: 30px;
 }
 .iniciar-sesion{
     
@@ -68,3 +119,11 @@ footer{
 .table tbody tr {
     height: 85px;
 }
+
+.card-body{
+    border: none;
+}
+
+/* .flex-fill{
+    min-width: 20%;
+} */
