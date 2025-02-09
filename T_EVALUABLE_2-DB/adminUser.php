@@ -16,75 +16,89 @@ if (isset($_REQUEST["cerrar-sesion"])) {
   exit();
 }
 
-/* FUNCIONES */
-
-
-function comprobarUser($id_user_desde_form, $user_boolean){
-    # si existe, pasamos user_boolean a true;
-    
-    $conexion = mysqli_connect("localhost", "root", "inmobiliaria_jonatangomez", );
-
-    if($conexion){
-        $query= "SELECT * FROM usuarios WHERE id_usuario = $id_user_desde_form";
-        $resultado=mysqli_query($conexion,$query);
-
-        if (mysqli_num_rows($resultado)>0) {
-            $user_boolean=true;
-        }else{
-            echo'<div class="alertas d-flex justify-content-center">
-                        <div class="alert alert-warning w-50 text-center d-flex justify-content-around" role="alert">
-                            <b>EL USUARIO NO EXISTE</b>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                       
-                    </div>';
-        }
-
-
-    }else{
-        #esta vez le damos vuelta a la logica, creando primero el si hay conexion... 
-        die("ERROR DE CONEXION MYSQL". mysqli_connect_error());
+if (isset($_REQUEST["delete"])) {
+    $conexion=mysqli_connect("localhost", "root", "", "inmobiliaria_jonatangomez");
+    if (!$conexion) {
+        die("ERROR DE CONEXION".mysqli_connect_error());
+    }else {
+        
+        $id_user= mysqli_real_escape_string($conexion,$_REQUEST["id_usuario"]);
+        $nombreUser= mysqli_real_escape_string($conexion,$_REQUEST["nombreUsuario"]);
     }
-
-
-
     mysqli_close($conexion);
+    deleteUser($id_user,$nombreUser);
+
+
 }
 
 
+/* FUNCIONES */
 
 
+function comprobarUser($id_user_desde_form,$nombreUs){
+    # si existe, pasamos user_boolean a true;
+    
+    $conexion = mysqli_connect("localhost", "root","", "inmobiliaria_jonatangomez", );
 
-function deleteUser($id_user_desde_form){
+    if(!$conexion){
+        die("ERROR DE CONEXION MYSQL". mysqli_connect_error());
+    }
+    $query= "SELECT * FROM usuarios WHERE id_usuario = $id_user_desde_form AND nombre = '$nombreUs'";
+    $resultado=mysqli_query($conexion,$query);
+    $existe=  (mysqli_num_rows($resultado)>0);
+
+    mysqli_close($conexion);
+    return $existe;
+}
+function deleteUser($id_user_desde_form, $nombre_user_form){
     $user_existe=false;
-    comprobarUser($id_user_desde_form,$user_existe);
+    if (!comprobarUser($id_user_desde_form,$nombre_user_form)) {
+        echo'<div class="alertas d-flex justify-content-center">
+                    <div class="alert alert-danger w-50 text-center d-flex justify-content-around" role="alert">
+                        <b>EL USUARIO NO EXISTE, O NO COINCIDE ID y NOMBRE</b>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                   
+                </div>';
+    }else{
+        $conexion = mysqli_connect("localhost", "root", "","inmobiliaria_jonatangomez", );
+        if(!$conexion){
+            die("ERROR DE CONEXION MYSQL". mysqli_connect_error());
+        }
+            $query=" DELETE 
+            FROM usuarios 
+            WHERE id_usuario = $id_user_desde_form AND nombre = '$nombre_user_form';
+                    ";
+        
     
-    $conexion = mysqli_connect("localhost", "root", "inmobiliaria_jonatangomez", );
-    
-    if ($conexion && $user_existe) {
-        # code para eliminacion
-        $query=" DELETE 
-        FROM usuarios 
-        WHERE id_usuario = $id_user_desde_form;
-                ";
-
         if (mysqli_query($conexion, $query)) {
             echo'<div class="alertas d-flex justify-content-center">
                         <div class="alert alert-success w-50 text-center d-flex justify-content-around" role="alert">
-                            <b>EL USUARIO con ID:  $id_user_desde_form </b>
+                            <b>EL USUARIO con ID = '.  $id_user_desde_form .'<br> y NOMBRE = '.$nombre_user_form.' HA SIDO ELIMINADO CON EXITO</b>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 
                         </div>
                        
                     </div>';
+        }else {
+            echo '<div class="alertas d-flex justify-content-center">
+                    <div class="alert alert-danger w-50 text-center d-flex justify-content-around" role="alert">
+                        <b>Error al eliminar el usuario.</b>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                  </div>';
         }
-
-
-    }else{
-            
-        die("ERROR DE CONEXION MYSQL". mysqli_connect_error());
+    
+    
+        
+        mysqli_close($conexion);
     }
-    mysqli_close($conexion);
+    
+    
+    
+}
+function mostrar(){
+    
 }
 
 ?>
@@ -219,7 +233,7 @@ function deleteUser($id_user_desde_form){
 
     <!-- RELLENO DE LOS MENUS -->
     <div class="row justify-content-center g-3" id="accordionExample">
-        <!--elemento -->
+        <!--NUEVO USER -->
         <div class="col-md-8">
             <div class="collapse multi-collapse" id="multiCollapseExample1" data-bs-parent="#accordionExample">
                 <div class="card card-body align-items-center">
@@ -236,7 +250,7 @@ function deleteUser($id_user_desde_form){
                         <div class="mb-3 row">
                             <label for="email" class="col-sm-3 col-form-label">Email</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="email" name="email" required>
+                                <input type="email" class="form-control" id="email" name="email" required>
                             </div>
                         </div>
 
@@ -272,11 +286,40 @@ function deleteUser($id_user_desde_form){
             </div>
         </div>
 
-        <!--elemento -->
+        <!--DELETE USER -->
         <div class="col-md-8">
             <div class="collapse multi-collapse" id="multiCollapseExample2" data-bs-parent="#accordionExample">
                 <div class="card card-body align-items-center">
-                   DOS This panel is hidden by default but revealed when the user activates the relevant trigger.
+                <form class="deleteForm" action="#" method="post">
+    
+                    <h1 class="titulo text-danger text-center mb-3">ELEMINAR USUARIO</h1>
+                    <p class="text-danger">Por seguridad, para eliminar un usuario, hay que introducir id_usuario y nombre, esta acción no tiene vuelta atras</p>
+                    <div class="mb-3 row">
+                        <label for="nombre" class="col-sm-3 col-form-label">Id de Usuario</label>
+                        <div class="col-sm-8">
+                            <input type="number" class="form-control" id="id_usuario" name="id_usuario" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="nombreUsuario" class="col-sm-3 col-form-label">Email</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" required>
+                        </div>
+                    </div>
+
+                    
+                    
+                    <div class="mt-4 row justify-content-center">
+                        
+                        <div class="col-sm-6 col-md-8 d-flex justify-content-center">
+                        <input type="submit" class="form-control btn btn-danger" id="delete" name="delete" value="Eliminar usuario">
+                        </div>
+                    </div>
+
+
+                </form>
+                    
                 </div>
             </div>
         </div>
