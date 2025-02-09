@@ -222,8 +222,8 @@ if(isset($_REQUEST["registro"])){
 
         <div class="row">
 
-            <div class="navbar col-8">
-                <ul class="nav justify-content-start">
+            <div class="navbar col-sm-8 justify-content-center justify-content-md-start">
+                <ul class="nav justify-content-center justify-content-sm-start">
                     <li class="nav-item p-3">
                         <a class="nav-link" href="./index.php">VOLVER</a>
                     </li>
@@ -238,9 +238,9 @@ if(isset($_REQUEST["registro"])){
                 </ul>
             </div>
 
-            <div class="sesion col-4 d-flex flex-column align-items-end">
+            <div class="sesion col-sm-4 d-flex flex-column align-items-center align-items-md-end justify-content-center px-5">
        
-                    <h6 class="user-activo text-end">
+                    <h6 class="user-activo text-center text-sm-end">
     <?php
                     if (isset($_SESSION["email"])) {
                     echo "usuario: ";

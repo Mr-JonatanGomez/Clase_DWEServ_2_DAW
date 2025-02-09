@@ -14,9 +14,16 @@ header{
     background: rgb(222,252,215);
 }
 main{
-    display: flex;
+    
+    
     flex-grow: 1;
     justify-content: center;
+
+}
+table tr{
+    
+    
+    vertical-align: middle;
 
 }
 

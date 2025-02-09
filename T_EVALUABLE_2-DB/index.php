@@ -34,13 +34,11 @@ if (isset($_REQUEST["cerrar-sesion"])) {
             </div>
 
         </div>
-        <!-- <div class="titulo d-flex flex-row justify-content-center">
-        </div> -->
 
         <div class="row">
 
-            <div class="navbar col-8">
-                <ul class="nav justify-content-start">
+            <div class="navbar col-sm-8 justify-content-center justify-content-md-start">
+                <ul class="nav justify-content-center justify-content-sm-start">
 <?php
 
               if (!isset($_SESSION["email"])&& !isset($_SESSION["tipo_usuario"])&& !isset($_SESSION["id_usuario"])) {
@@ -58,9 +56,6 @@ if (isset($_REQUEST["cerrar-sesion"])) {
                 
               }
 
-?>
-                    
-<?php
 if (isset($_SESSION["tipo_usuario"])&& $_SESSION["tipo_usuario"] =="vendedor") {
         
   echo'
@@ -68,6 +63,16 @@ if (isset($_SESSION["tipo_usuario"])&& $_SESSION["tipo_usuario"] =="vendedor") {
                         <a class="nav-link" href="./registroPiso.php">REGISTRAR PISO</a>
                     </li>
   ';
+}elseif (isset($_SESSION["tipo_usuario"])&& $_SESSION["tipo_usuario"] =="admin") {
+  
+  echo'
+  <li class="nav-item p-3">
+      <a class="nav-link" href="./adminUser.php">ADMINISTRAR USUARIOS</a>
+  </li>
+  <li class="nav-item p-3">
+      <a class="nav-link" href="./adminPiso.php">ADMINISTRAR PISOS</a>
+  </li>
+';
 }
 
 
@@ -79,9 +84,9 @@ if (isset($_SESSION["tipo_usuario"])&& $_SESSION["tipo_usuario"] =="vendedor") {
                 </ul>
             </div>
 
-            <div class="sesion col-4 d-flex flex-column align-items-end">
+            <div class="sesion col-sm-4 d-flex flex-column align-items-center align-items-md-end justify-content-center px-5">
        
-                    <h6 class="user-activo text-end">
+                    <h6 class="user-activo text-center text-sm-end">
     <?php
                     if (isset($_SESSION["email"])) {
                       echo "usuario: ";
