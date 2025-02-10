@@ -1,6 +1,20 @@
 <?php
     session_start();
+function comprobarUser($id_user_desde_form){
+    # si existe, pasamos user_boolean a true;
     
+    $conexion = mysqli_connect("localhost", "root","", "inmobiliaria_jonatangomez", );
+
+    if(!$conexion){
+        die("ERROR DE CONEXION MYSQL". mysqli_connect_error());
+    }
+    $query= "SELECT * FROM usuarios WHERE id_usuario = $id_user_desde_form";
+    $resultado=mysqli_query($conexion,$query);
+    $existe=  (mysqli_num_rows($resultado)>0);
+
+    mysqli_close($conexion);
+    return $existe;
+} 
 
 if (isset($_REQUEST["cerrar-sesion"])) {
     
@@ -28,25 +42,31 @@ if(isset($_REQUEST["registroP"])){
             $metros = mysqli_real_escape_string($conexion,$_REQUEST["metros"]);
             $poblacion = mysqli_real_escape_string($conexion,$_REQUEST["poblacion"]);
             $precio = mysqli_real_escape_string($conexion,$_REQUEST["precio"]);
+            
             $idUser= $_SESSION["id_usuario"];
+            
+            
+            
 
-            $query= "   INSERT INTO pisos 
-                                (calle, numero, piso, puerta, metros, poblacion, precio, id_usuario)
-                        VALUES ('$calle',$numero,$piso,'$puerta',$metros,'$poblacion',$precio,$idUser);
-                    ";
-            if (mysqli_query($conexion,$query)) {
-                echo '<div class="alertas d-flex justify-content-center">
-                                <div class="alert alert-success w-50 text-center d-flex justify-content-around" role="alert">
-                                    <b>HAS REGISTRADO UN PISO EN NUESTRA DATABASE</b>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-
-                                </div>
-                            </div>';
+                $query= "   INSERT INTO pisos 
+                                    (calle, numero, piso, puerta, metros, poblacion, precio, id_usuario)
+                            VALUES ('$calle',$numero,$piso,'$puerta',$metros,'$poblacion',$precio,$idUser);
+                        ";
+                if (mysqli_query($conexion,$query)) {
+                    echo '<div class="alertas d-flex justify-content-center">
+                                    <div class="alert alert-success w-50 text-center d-flex justify-content-around" role="alert">
+                                        <b>HAS REGISTRADO UN PISO EN NUESTRA DATABASE</b>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     
+                                    </div>
+                                </div>';
+        
+    
+                } else{
+                    echo "Error al realizar el insert con la query:". $query. mysqli_error($conexion);
+                }
+            
 
-            } else{
-                echo "Error al realizar el insert con la query:". $query. mysqli_error($conexion);
-            }
 
     }
 

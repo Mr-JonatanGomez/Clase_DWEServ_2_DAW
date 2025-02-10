@@ -3,6 +3,22 @@
 
 session_start();
 
+function comprobarUser($id_user_desde_form){
+    # si existe, pasamos user_boolean a true;
+    
+    $conexion = mysqli_connect("localhost", "root","", "inmobiliaria_jonatangomez", );
+
+    if(!$conexion){
+        die("ERROR DE CONEXION MYSQL". mysqli_connect_error());
+    }
+    $query= "SELECT * FROM usuarios WHERE id_usuario = $id_user_desde_form";
+    $resultado=mysqli_query($conexion,$query);
+    $existe=  (mysqli_num_rows($resultado)>0);
+
+    mysqli_close($conexion);
+    return $existe;
+} 
+
 if (isset($_REQUEST["cerrar-sesion"])) {
     
   unset($_SESSION["email"]);
@@ -15,6 +31,65 @@ if (isset($_REQUEST["cerrar-sesion"])) {
   header("Location: index.php"); // o la página que desees
   exit();
 }
+
+
+if(isset($_REQUEST["registroP"])){
+    $conexion = mysqli_connect("localhost","root","", "inmobiliaria_jonatangomez");
+    if (!$conexion) {
+        die("ERROR DE CONEXION". mysqli_connect_error());
+    }else {
+            $calle = mysqli_real_escape_string($conexion,$_REQUEST["calle"]);
+            $numero = mysqli_real_escape_string($conexion,$_REQUEST["numero"]);
+            $piso = mysqli_real_escape_string($conexion,$_REQUEST["piso"]);
+            $puerta = mysqli_real_escape_string($conexion,$_REQUEST["puerta"]);
+            $metros = mysqli_real_escape_string($conexion,$_REQUEST["metros"]);
+            $poblacion = mysqli_real_escape_string($conexion,$_REQUEST["poblacion"]);
+            $precio = mysqli_real_escape_string($conexion,$_REQUEST["precio"]);
+            
+            $idUser = mysqli_real_escape_string($conexion,$_REQUEST["idUser"]);
+                
+            
+            
+            if(comprobarUser($idUser)){
+
+                $query= "   INSERT INTO pisos 
+                                    (calle, numero, piso, puerta, metros, poblacion, precio, id_usuario)
+                            VALUES ('$calle',$numero,$piso,'$puerta',$metros,'$poblacion',$precio,$idUser);
+                        ";
+                if (mysqli_query($conexion,$query)) {
+                    echo '<div class="alertas d-flex justify-content-center">
+                                    <div class="alert alert-success w-50 text-center d-flex justify-content-around" role="alert">
+                                        <b>HAS REGISTRADO UN PISO EN NUESTRA DATABASE</b>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    
+                                    </div>
+                                </div>';
+        
+    
+                } else{
+                    echo "Error al realizar el insert con la query:". $query. mysqli_error($conexion);
+                }
+            }else{
+                echo '<div class="alertas d-flex justify-content-center">
+                <div class="alert alert-error w-50 text-center d-flex justify-content-around" role="alert">
+                    <b>EL USUARIO NO EXISTE Y NO PUEDES AGREGAR UN PISO A ESTE USER</b>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+                </div>
+            </div>';
+
+            }
+
+
+    }
+
+    
+
+
+
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -118,8 +193,8 @@ if (isset($_REQUEST["cerrar-sesion"])) {
         <!-- Botón Modificar -->
         <div class="col mb-1">
             <button class="btn btn-warning w-100" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#multiCollapseExample4"
-                    aria-expanded="false" aria-controls="multiCollapseExample4">
+                    data-bs-toggle="collapse" data-bs-target="#multiCollapseExample3"
+                    aria-expanded="false" aria-controls="multiCollapseExample3">
             Modificar
             </button>
         </div>
@@ -127,8 +202,8 @@ if (isset($_REQUEST["cerrar-sesion"])) {
         <!-- Botón Buscar -->
         <div class="col mb-1">
             <button class="btn btn-secondary w-100" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#multiCollapseExample3"
-                    aria-expanded="false" aria-controls="multiCollapseExample3">
+                    data-bs-toggle="collapse" data-bs-target="#multiCollapseExample4"
+                    aria-expanded="false" aria-controls="multiCollapseExample4">
             Buscar
             </button>
         </div>
@@ -147,52 +222,73 @@ if (isset($_REQUEST["cerrar-sesion"])) {
 
     <!-- RELLENO DE LOS MENUS -->
     <div class="row justify-content-center g-3" id="accordionExample">
-        <!--NUEVO USER -->
+        <!--NUEVO PISO -->
         <div class="col-md-8">
             <div class="collapse multi-collapse" id="multiCollapseExample1" data-bs-parent="#accordionExample">
                 <div class="card card-body align-items-center">
-                    <form action="./registro.php" method="post" class="newForm">
-                        <h3 class="titulo text-success text-center mb-3">NUEVO USUARIO</h3>
+                    <form action="#" method="post" class="newForm">
+                        <h3 class="titulo text-success text-center mb-3">NUEVO PISO</h3>
 
                         <div class="mb-3 row">
-                            <label for="nombre" class="col-sm-3 col-form-label">Nombre</label>
+                            <label for="calle" class="col-sm-3 col-form-label">Calle</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="nombre" name="nombre" required>
+                                <input type="text" class="form-control" id="calle" name="calle" required>
                             </div>
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="email" class="col-sm-3 col-form-label">Email</label>
+                            <label for="numero" class="col-sm-3 col-form-label">Numero</label>
                             <div class="col-sm-8">
-                                <input type="email" class="form-control" id="email" name="email" required>
+                                <input type="number" class="form-control" id="numero" name="numero" required>
                             </div>
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="inputPassword" class="col-sm-3 col-form-label">Password</label>
+                            <label for="piso" class="col-sm-3 col-form-label">Piso</label>
                             <div class="col-sm-8">
-                                <input type="password" class="form-control" id="inputPassword" name="password" required>
+                                <input type="number" class="form-control" id="piso" name="piso" required>
                             </div>
                         </div>
+                        
                         <div class="mb-3 row">
-                            <label for="inputPassword" class="col-sm-3 col-form-label">Confirmar Password</label>
+                            <label for="puerta" class="col-sm-3 col-form-label">Puerta</label>
                             <div class="col-sm-8">
-                                <input type="password" class="form-control" id="inputPassword2" name="password2" required>
+                                <input type="text" class="form-control" id="puerta" name="puerta" required>
                             </div>
                         </div>
-
+                        
                         <div class="mb-3 row">
-                            <label for="tipo" class="col-sm-4 col-form-label">Tipo</label>
-                            <div class="col-sm-8 d-flex align-items-center justify-content-around">
-                                <label for="comprador">comprador  <input type="radio" id="comprador" name="tipo" value="comprador" required></label>
-                                <label for="vendedor">vendedor  <input type="radio" id="vendedor" name="tipo" value="vendedor"></label>
+                            <label for="metros" class="col-sm-3 col-form-label">metros²</label>
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control" id="metros" name="metros" required>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3 row">
+                            <label for="poblacion" class="col-sm-3 col-form-label">Población</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="poblacion" name="poblacion" required>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3 row">
+                            <label for="precio" class="col-sm-3 col-form-label">Precio</label>
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control" id="precio" name="precio" required>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3 row">
+                            <label for="idUser" class="col-sm-3 col-form-label">Id_usuario</label>
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control" id="idUser" name="idUser" required>
                             </div>
                         </div>
         
                         <div class="mt-4 row justify-content-center">
                             
                             <div class="col-sm-6 col-md-8 d-flex justify-content-center">
-                            <input type="submit" class="form-control btn btn-success" id="registro" name="registro" value="Dar de Alta">
+                            <input type="submit" class="form-control btn btn-success" id="registroP" name="registroP" value="Dar de Alta">
                             </div>
                         </div>
                     </form>
@@ -200,7 +296,7 @@ if (isset($_REQUEST["cerrar-sesion"])) {
             </div>
         </div>
 
-        <!--DELETE USER -->
+        <!--DELETE PISO -->
         <div class="col-md-8">
             <div class="collapse multi-collapse" id="multiCollapseExample2" data-bs-parent="#accordionExample">
                 <div class="card card-body align-items-center">

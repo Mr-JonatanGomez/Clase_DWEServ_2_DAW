@@ -31,6 +31,65 @@ if (isset($_REQUEST["delete"])) {
 
 }
 
+if (isset($_REQUEST["update"])){
+    #codigo
+}
+
+if(isset($_REQUEST["registro"])){
+    $conexion = mysqli_connect("localhost","root","", "inmobiliaria_jonatangomez");
+    if (!$conexion) {
+        die("ERROR DE CONEXION". mysqli_connect_error());
+    }else {
+        
+        /* COMPROBAR PASSWORD IGUAL */
+        $password = mysqli_real_escape_string($conexion,$_REQUEST["password"]);
+        $password2 = mysqli_real_escape_string($conexion,$_REQUEST["password2"]);
+        if ($password != $password2) {
+            echo '<div class="alertas d-flex justify-content-around align-items-center pt-3">
+                    <div class="alert alert-danger w-50 text-center d-flex justify-content-around" role="alert">
+                        <b>LAS CONTRASEÑAS NO COINCIDEN</b>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>';
+        
+        }else {
+            
+
+            $nombre = mysqli_real_escape_string($conexion,$_REQUEST["nombre"]);
+            $email = mysqli_real_escape_string($conexion,$_REQUEST["email"]);
+            $tipo = mysqli_real_escape_string($conexion,$_REQUEST["tipo"]);
+        
+            $query= "   INSERT INTO usuarios 
+                                (nombre, correo, password, tipo_usuario)
+                        VALUES ('$nombre','$email','$password','$tipo');
+                    ";
+            if (mysqli_query($conexion,$query)) {
+                echo '<div class="alertas d-flex justify-content-center">
+                                <div class="alert alert-success w-50 text-center d-flex justify-content-around" role="alert">
+                                    <b>REGISTRO EXITOSO EN LA DATABASE</b>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+                                </div>
+                            </div>';
+    
+                         
+            } else{
+                echo "Error al realizar el insert con la query:". $query. mysqli_error($conexion);
+    
+            }
+
+
+        }
+
+
+    }
+
+    
+
+
+
+}
+
 
 /* FUNCIONES */
 
@@ -98,8 +157,54 @@ function deleteUser($id_user_desde_form, $nombre_user_form){
     
 }
 function mostrar(){
+    
+    $conexion = mysqli_connect("Localhost", "root", "", "inmobiliaria_jonatangomez");
+    
+    if (!$conexion) {
+    die("ERROR DE CONEXION". mysqli_connect_error());
+    }
+    echo'
+    <table class="table">
+    <thead>
+    <tr>
+        <th class="d-none d-md-table-cell scope="col">id</th>
+        <th scope="col">Nombre</th>
+        <th scope="col" class="d-none d-md-table-cell">Email</th>
+        <th>Tipo de Usuario</th>
+        <th scope="col">Nº de Pisos en propiedad</th>
+        
+    </tr>
+    </thead>
+    <tbody>
+    ';
+    $query="SELECT id_usuario, nombre, correo, tipo_usuario, 
+    COUNT(pisos.id_usuario) AS nPisos
+    FROM usuarios
+    LEFT JOIN pisos USING(id_usuario)
+    GROUP BY id_usuario, nombre, correo, tipo_usuario
+    ";
+    $resultadoQuery= mysqli_query($conexion, $query);
+    if (mysqli_num_rows($resultadoQuery)>0) {
+    while ($row=mysqli_fetch_assoc($resultadoQuery)) {
+        #obtenemos var y pintamos cada fila por su row[campo]
+        echo'
+        <tr>
+        <th class="d-none d-md-table-cell scope="row">'.$row['id_usuario'].'</th>';
+        echo'<td>'.$row['nombre'].'</td>';
+        echo'<td class="d-none d-md-table-cell">'.$row['correo'].'</td>';
+        
+        echo '<td>'.$row['tipo_usuario'].'</td>';
+        echo'<td>'.$row['nPisos'].'</td>';
+        
+    }
+    }
+    echo '</tbody></table>';
 
+
+   
 }
+
+
 
 ?>
 
@@ -204,8 +309,8 @@ function mostrar(){
         <!-- Botón Modificar -->
         <div class="col mb-1">
             <button class="btn btn-warning w-100" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#multiCollapseExample4"
-                    aria-expanded="false" aria-controls="multiCollapseExample4">
+                    data-bs-toggle="collapse" data-bs-target="#multiCollapseExample3"
+                    aria-expanded="false" aria-controls="multiCollapseExample3">
             Modificar
             </button>
         </div>
@@ -213,8 +318,8 @@ function mostrar(){
         <!-- Botón Buscar -->
         <div class="col mb-1">
             <button class="btn btn-secondary w-100" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#multiCollapseExample3"
-                    aria-expanded="false" aria-controls="multiCollapseExample3">
+                    data-bs-toggle="collapse" data-bs-target="#multiCollapseExample4"
+                    aria-expanded="false" aria-controls="multiCollapseExample4">
             Buscar
             </button>
         </div>
@@ -237,7 +342,7 @@ function mostrar(){
         <div class="col-md-8">
             <div class="collapse multi-collapse" id="multiCollapseExample1" data-bs-parent="#accordionExample">
                 <div class="card card-body align-items-center">
-                    <form action="./registro.php" method="post" class="newForm">
+                    <form action="#" method="post" class="newForm">
                         <h3 class="titulo text-success text-center mb-3">NUEVO USUARIO</h3>
 
                         <div class="mb-3 row">
@@ -292,8 +397,9 @@ function mostrar(){
                 <div class="card card-body align-items-center">
                 <form class="deleteForm" action="#" method="post">
     
-                    <h1 class="titulo text-danger text-center mb-3">ELEMINAR USUARIO</h1>
-                    <p class="text-danger">Por seguridad, para eliminar un usuario, hay que introducir id_usuario y nombre, esta acción no tiene vuelta atras</p>
+                    <h3 class="titulo text-danger text-center mb-3">ELIMINAR USUARIO</h3>
+                    <p class="text-danger">Por seguridad, para eliminar un usuario, hay que introducir id_usuario y nombre, esta acción no tiene vuelta atras*</p>
+                    <p class="text-secondary">*Tambien seran eliminados todos sus pisos</p>
                     <div class="mb-3 row">
                         <label for="nombre" class="col-sm-3 col-form-label">Id de Usuario</label>
                         <div class="col-sm-8">
@@ -324,11 +430,52 @@ function mostrar(){
             </div>
         </div>
         
-        <!--elemento -->
+        <!-- UPDATE USER -->
+
         <div class="col-md-8">
             <div class="collapse multi-collapse" id="multiCollapseExample3" data-bs-parent="#accordionExample">
                 <div class="card card-body align-items-center">
-                    TRES.
+                    <form action="./registro.php" method="post" class="modForm">
+                        <h3 class="titulo text-warning text-center mb-3">MODIFICAR USUARIO</h3>
+                        <div class="mb-3 row">
+                            <label for="nombre" class="col-sm-3 col-form-label">Nombre</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="nombre" name="nombre" required>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="email" class="col-sm-3 col-form-label">Email</label>
+                            <div class="col-sm-8">
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="inputPassword" class="col-sm-3 col-form-label">Password</label>
+                            <div class="col-sm-8">
+                                <input type="password" class="form-control" id="inputPassword" name="password" required>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="inputPassword" class="col-sm-3 col-form-label">Confirmar Password</label>
+                            <div class="col-sm-8">
+                                <input type="password" class="form-control" id="inputPassword2" name="password2" required>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="tipo" class="col-sm-4 col-form-label">Tipo</label>
+                            <div class="col-sm-8 d-flex align-items-center justify-content-around">
+                                <label for="comprador">comprador  <input type="radio" id="comprador" name="tipo" value="comprador" required></label>
+                                <label for="vendedor">vendedor  <input type="radio" id="vendedor" name="tipo" value="vendedor"></label>
+                            </div>
+                        </div>
+        
+                        <div class="mt-4 row justify-content-center">
+                            
+                            <div class="col-sm-6 col-md-8 d-flex justify-content-center">
+                            <input type="submit" class="form-control btn btn-warning" id="update" name="update" value="Modificar usuario">
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -346,51 +493,8 @@ function mostrar(){
         <div class="col-md-8">
             <div class="collapse multi-collapse" id="multiCollapseExample5" data-bs-parent="#accordionExample">
                 <div class="card card-body align-items-center">
-                     <?php
-                        $conexion = mysqli_connect("Localhost", "root", "", "inmobiliaria_jonatangomez");
-                        
-                        if (!$conexion) {
-                        die("ERROR DE CONEXION". mysqli_connect_error());
-                        }
-                        echo'
-                        <table class="table">
-                        <thead>
-                        <tr>
-                            <th class="d-none d-md-table-cell scope="col">id</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col" class="d-none d-md-table-cell">Email</th>
-                            <th>Tipo de Usuario</th>
-                            <th scope="col">Nº de Pisos en propiedad</th>
-                            
-                        </tr>
-                        </thead>
-                        <tbody>
-                        ';
-                        $query="SELECT id_usuario, nombre, correo, tipo_usuario, 
-                        COUNT(pisos.id_usuario) AS nPisos
-                        FROM usuarios
-                        LEFT JOIN pisos USING(id_usuario)
-                        GROUP BY id_usuario, nombre, correo, tipo_usuario
-                        ";
-                        $resultadoQuery= mysqli_query($conexion, $query);
-                        if (mysqli_num_rows($resultadoQuery)>0) {
-                        while ($row=mysqli_fetch_assoc($resultadoQuery)) {
-                            #obtenemos var y pintamos cada fila por su row[campo]
-                            echo'
-                            <tr>
-                            <th class="d-none d-md-table-cell scope="row">'.$row['id_usuario'].'</th>';
-                            echo'<td>'.$row['nombre'].'</td>';
-                            echo'<td class="d-none d-md-table-cell">'.$row['correo'].'</td>';
-                            
-                            echo '<td>'.$row['tipo_usuario'].'</td>';
-                            echo'<td>'.$row['nPisos'].'</td>';
-                            
-                        }
-                        }
-                        echo '</tbody></table>';
-
-
-
+                    <?php
+                    mostrar();
                     ?>
                 </div>
             </div>
