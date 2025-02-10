@@ -260,65 +260,55 @@ if (isset($_REQUEST["cerrar-sesion"])) {
         <div class="col-md-12">
             <div class="collapse multi-collapse" id="multiCollapseExample5" data-bs-parent="#accordionExample">
                 <div class="card card-body align-items-center">
-                     <?php
-$conexion = mysqli_connect("Localhost", "root", "", "inmobiliaria_jonatangomez");
-  
-if (!$conexion) {
-  die("ERROR DE CONEXION". mysqli_connect_error());
-}
-
-echo'
-<table class="table">
-<thead>
-  <tr>
-    <th class="d-none d-md-table-cell scope="col">id</th>
-    <th scope="col">Poblacion</th>
-    <th scope="col">m²</th>
-    <th scope="col">Precio</th>
-    <th scope="col" class="d-none d-md-table-cell">Direccion</th>
-    <th scope="col">Dueño</th>
-    <th scope="col"></th>
-  </tr>
-</thead>
-<tbody>
-';
-
-$query="SELECT id_piso, poblacion, metros, precio, calle, numero, piso, puerta, usuarios.nombre AS dueño
-FROM pisos
-LEFT JOIN usuarios USING(id_usuario)
-GROUP BY id_piso, poblacion, metros, precio, calle, numero, piso, puerta, dueño
-
-
-";
-$resultadoQuery= mysqli_query($conexion, $query);
-
-
-if (mysqli_num_rows($resultadoQuery)>0) {
-  while ($row=mysqli_fetch_assoc($resultadoQuery)) {
-      #obtenemos var y pintamos cada fila por su row[campo]
-      echo'
-      <tr>
-    <th class="d-none d-md-table-cell scope="row">'.$row['id_piso'].'</th>';
-    echo'<td>'.$row['poblacion'].'</td>';
-    echo'<td>'.$row['metros'].'</td>';
-    echo'<td>'.$row['precio'].'</td>';
-
-    echo '<td class="d-none d-md-table-cell">Calle '.$row['calle'].
-        ' Nº '.$row['numero'].
-        ' Piso '.$row['piso'].'º'.
-        $row['puerta'].'</td>';
-
-    echo'<td>'.$row['dueño'].'</td>';
-    
-  }
-}
-
-
-echo '</tbody></table>';
+                    <?php
+                        $conexion = mysqli_connect("Localhost", "root", "", "inmobiliaria_jonatangomez");
+                        
+                        if (!$conexion) {
+                        die("ERROR DE CONEXION". mysqli_connect_error());
+                        }
+                        echo'
+                        <table class="table">
+                        <thead>
+                        <tr>
+                            <th class="d-none d-md-table-cell scope="col">id</th>
+                            <th scope="col">Poblacion</th>
+                            <th scope="col">m²</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col" class="d-none d-md-table-cell">Direccion</th>
+                            <th scope="col">Dueño</th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        ';
+                        $query="SELECT id_piso, poblacion, metros, precio, calle, numero, piso, puerta, usuarios.nombre AS dueño
+                        FROM pisos
+                        LEFT JOIN usuarios USING(id_usuario)
+                        GROUP BY id_piso, poblacion, metros, precio, calle, numero, piso, puerta, dueño
+                        ";
+                        $resultadoQuery= mysqli_query($conexion, $query);
+                        if (mysqli_num_rows($resultadoQuery)>0) {
+                        while ($row=mysqli_fetch_assoc($resultadoQuery)) {
+                            #obtenemos var y pintamos cada fila por su row[campo]
+                            echo'
+                            <tr>
+                            <th class="d-none d-md-table-cell scope="row">'.$row['id_piso'].'</th>';
+                            echo'<td>'.$row['poblacion'].'</td>';
+                            echo'<td>'.$row['metros'].'</td>';
+                            echo'<td>'.$row['precio'].'</td>';
+                            echo '<td class="d-none d-md-table-cell">Calle '.$row['calle'].
+                                ' Nº '.$row['numero'].
+                                ' Piso '.$row['piso'].'º'.
+                                $row['puerta'].'</td>';
+                            echo'<td>'.$row['dueño'].'</td>';
+                            
+                        }
+                        }
+                        echo '</tbody></table>';
 
 
 
-?>
+                    ?>
                 </div>
             </div>
         </div>

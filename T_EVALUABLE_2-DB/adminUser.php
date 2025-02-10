@@ -98,7 +98,7 @@ function deleteUser($id_user_desde_form, $nombre_user_form){
     
 }
 function mostrar(){
-    
+
 }
 
 ?>
@@ -346,7 +346,52 @@ function mostrar(){
         <div class="col-md-8">
             <div class="collapse multi-collapse" id="multiCollapseExample5" data-bs-parent="#accordionExample">
                 <div class="card card-body align-items-center">
-                    CINCO activates the relevant trigger.
+                     <?php
+                        $conexion = mysqli_connect("Localhost", "root", "", "inmobiliaria_jonatangomez");
+                        
+                        if (!$conexion) {
+                        die("ERROR DE CONEXION". mysqli_connect_error());
+                        }
+                        echo'
+                        <table class="table">
+                        <thead>
+                        <tr>
+                            <th class="d-none d-md-table-cell scope="col">id</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col" class="d-none d-md-table-cell">Email</th>
+                            <th>Tipo de Usuario</th>
+                            <th scope="col">Nº de Pisos en propiedad</th>
+                            
+                        </tr>
+                        </thead>
+                        <tbody>
+                        ';
+                        $query="SELECT id_usuario, nombre, correo, tipo_usuario, 
+                        COUNT(pisos.id_usuario) AS nPisos
+                        FROM usuarios
+                        LEFT JOIN pisos USING(id_usuario)
+                        GROUP BY id_usuario, nombre, correo, tipo_usuario
+                        ";
+                        $resultadoQuery= mysqli_query($conexion, $query);
+                        if (mysqli_num_rows($resultadoQuery)>0) {
+                        while ($row=mysqli_fetch_assoc($resultadoQuery)) {
+                            #obtenemos var y pintamos cada fila por su row[campo]
+                            echo'
+                            <tr>
+                            <th class="d-none d-md-table-cell scope="row">'.$row['id_usuario'].'</th>';
+                            echo'<td>'.$row['nombre'].'</td>';
+                            echo'<td class="d-none d-md-table-cell">'.$row['correo'].'</td>';
+                            
+                            echo '<td>'.$row['tipo_usuario'].'</td>';
+                            echo'<td>'.$row['nPisos'].'</td>';
+                            
+                        }
+                        }
+                        echo '</tbody></table>';
+
+
+
+                    ?>
                 </div>
             </div>
         </div>
