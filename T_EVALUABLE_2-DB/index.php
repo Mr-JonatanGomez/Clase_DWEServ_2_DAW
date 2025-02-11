@@ -122,11 +122,7 @@ if (isset($_SESSION["tipo_usuario"])&& $_SESSION["tipo_usuario"] =="vendedor") {
     <main class="container-lg">
 <?php
   /* pintaremos DINAMICAMENTE CADA PISO */
-  $conexion = mysqli_connect("Localhost", "root", "", "inmobiliaria_jonatangomez");
-  
-  if (!$conexion) {
-    die("ERROR DE CONEXION". mysqli_connect_error());
-  }
+  include './includes/conexion.php';
 
   echo'
   <table class="table">

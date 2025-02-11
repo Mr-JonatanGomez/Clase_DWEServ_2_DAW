@@ -34,11 +34,7 @@ if (isset($_REQUEST["iniciar-sesion"])) {
                     </div>';
     } else{ 
 
-        $conexion = mysqli_connect("localhost","root","","inmobiliaria_jonatangomez");
-
-        if (!$conexion) {
-            die("Hubo un error de conexion. ".mysqli_connect_error());
-        }
+        include './includes/conexion.php';
 
         $usuarioIntro=trim(strip_tags($_REQUEST["email"]));
         $passwordIntro=trim(strip_tags($_REQUEST["password"]));

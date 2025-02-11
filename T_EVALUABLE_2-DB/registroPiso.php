@@ -3,11 +3,7 @@
 function comprobarUser($id_user_desde_form){
     # si existe, pasamos user_boolean a true;
     
-    $conexion = mysqli_connect("localhost", "root","", "inmobiliaria_jonatangomez", );
-
-    if(!$conexion){
-        die("ERROR DE CONEXION MYSQL". mysqli_connect_error());
-    }
+    include './includes/conexion.php';
     $query= "SELECT * FROM usuarios WHERE id_usuario = $id_user_desde_form";
     $resultado=mysqli_query($conexion,$query);
     $existe=  (mysqli_num_rows($resultado)>0);
@@ -31,10 +27,9 @@ if (isset($_REQUEST["cerrar-sesion"])) {
 
 
 if(isset($_REQUEST["registroP"])){
-    $conexion = mysqli_connect("localhost","root","", "inmobiliaria_jonatangomez");
-    if (!$conexion) {
-        die("ERROR DE CONEXION". mysqli_connect_error());
-    }else {
+    include './includes/conexion.php';
+    
+    if ($conexion) {
             $calle = mysqli_real_escape_string($conexion,$_REQUEST["calle"]);
             $numero = mysqli_real_escape_string($conexion,$_REQUEST["numero"]);
             $piso = mysqli_real_escape_string($conexion,$_REQUEST["piso"]);

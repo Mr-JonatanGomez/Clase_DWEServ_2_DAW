@@ -17,10 +17,9 @@ if (isset($_REQUEST["cerrar-sesion"])) {
 }
 
 if (isset($_REQUEST["delete"])) {
-    $conexion=mysqli_connect("localhost", "root", "", "inmobiliaria_jonatangomez");
-    if (!$conexion) {
-        die("ERROR DE CONEXION".mysqli_connect_error());
-    }else {
+    include './includes/conexion.php';
+    if ($conexion) {
+    
         
         $id_user= mysqli_real_escape_string($conexion,$_REQUEST["id_usuario"]);
         $nombreUser= mysqli_real_escape_string($conexion,$_REQUEST["nombreUsuario"]);
@@ -36,10 +35,9 @@ if (isset($_REQUEST["update"])){
 }
 
 if(isset($_REQUEST["registro"])){
-    $conexion = mysqli_connect("localhost","root","", "inmobiliaria_jonatangomez");
-    if (!$conexion) {
-        die("ERROR DE CONEXION". mysqli_connect_error());
-    }else {
+    include './includes/conexion.php';
+    
+    if($conexion) {
         
         /* COMPROBAR PASSWORD IGUAL */
         $password = mysqli_real_escape_string($conexion,$_REQUEST["password"]);
@@ -97,11 +95,7 @@ if(isset($_REQUEST["registro"])){
 function comprobarUser($id_user_desde_form,$nombreUs){
     # si existe, pasamos user_boolean a true;
     
-    $conexion = mysqli_connect("localhost", "root","", "inmobiliaria_jonatangomez", );
-
-    if(!$conexion){
-        die("ERROR DE CONEXION MYSQL". mysqli_connect_error());
-    }
+    include './includes/conexion.php';
     $query= "SELECT * FROM usuarios WHERE id_usuario = $id_user_desde_form AND nombre = '$nombreUs'";
     $resultado=mysqli_query($conexion,$query);
     $existe=  (mysqli_num_rows($resultado)>0);
@@ -120,10 +114,7 @@ function deleteUser($id_user_desde_form, $nombre_user_form){
                    
                 </div>';
     }else{
-        $conexion = mysqli_connect("localhost", "root", "","inmobiliaria_jonatangomez", );
-        if(!$conexion){
-            die("ERROR DE CONEXION MYSQL". mysqli_connect_error());
-        }
+        include './includes/conexion.php';
             $query=" DELETE 
             FROM usuarios 
             WHERE id_usuario = $id_user_desde_form AND nombre = '$nombre_user_form';
@@ -158,11 +149,7 @@ function deleteUser($id_user_desde_form, $nombre_user_form){
 }
 function mostrar(){
     
-    $conexion = mysqli_connect("Localhost", "root", "", "inmobiliaria_jonatangomez");
-    
-    if (!$conexion) {
-    die("ERROR DE CONEXION". mysqli_connect_error());
-    }
+    include './includes/conexion.php';
     echo'
     <table class="table">
     <thead>

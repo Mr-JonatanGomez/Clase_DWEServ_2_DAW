@@ -17,10 +17,8 @@ if (isset($_REQUEST["cerrar-sesion"])) {
 
 
 if(isset($_REQUEST["delete"])){
-    $conexion = mysqli_connect("localhost","root","", "inmobiliaria_jonatangomez");
-    if (!$conexion) {
-        die("ERROR DE CONEXION". mysqli_connect_error());
-    }else {
+    include './includes/conexion.php';
+    if ($conexion) {
         
         /* COMPROBAR PASSWORD IGUAL */
         $password = mysqli_real_escape_string($conexion,$_REQUEST["password"]);
