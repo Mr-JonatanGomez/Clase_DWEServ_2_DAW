@@ -2,6 +2,11 @@
 
 
 session_start();
+$form_o_error ='<div class="mt-3 row">
+                    <div class="col-12">
+                        <a class="form-control btn btn-danger" href="./adminUser.php">VOLVER</a>
+                    </div>
+                </div>';
 
 if (isset($_REQUEST["cerrar-sesion"])) {
     
@@ -38,19 +43,19 @@ if (isset($_POST["buscar"])){
                         <div class="mb-3 row">
                             <label for="nombre" class="col-sm-3 col-form-label">Id_user</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="idUser" value="'.$dato['id_usuario'].'" readonly>
+                                <input type="text" class="form-control" id="idUserM" name="idUserM" value="'.$dato['id_usuario'].'" readonly>
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="nombre" class="col-sm-3 col-form-label">Nombre</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="nombre" name="nombre" value="'.$dato['nombre'].'">
+                                <input type="text" class="form-control" id="nombre" name="nombre" value="'.$dato['nombre'].'" required>
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="email" class="col-sm-3 col-form-label">Email</label>
                             <div class="col-sm-8">
-                                <input type="email" class="form-control" id="email" name="email" value="'.$dato['correo'].'">
+                                <input type="email" class="form-control" id="email" name="email" value="'.$dato['correo'].'" required>
                             </div>
                         </div>
 
@@ -64,7 +69,7 @@ if (isset($_POST["buscar"])){
                         <div class="mb-3 row">
                             <label for="tipo" class="col-sm-4 col-form-label">Tipo nuevo</label>
                             <div class="col-sm-8 d-flex align-items-center justify-content-around">
-                                <label for="comprador">comprador  <input type="radio" id="comprador" name="tipo" value="comprador"></label>
+                                <label for="comprador">comprador  <input type="radio" id="comprador" name="tipo" value="comprador" required></label>
                                 <label for="vendedor">vendedor  <input type="radio" id="vendedor" name="tipo" value="vendedor"></label>
                             </div>
                         </div>
@@ -83,7 +88,30 @@ if (isset($_POST["buscar"])){
         
     } else {
         // Si no existe, asignamos un mensaje de error
-        $form_o_error = '<div class="alert alert-danger text-center">El usuario no existe</div>';
+        $form_o_error = '
+        <form class="modForm">
+        <h3 class="titulo text-warning text-center mb-3">EDITAR DATOS</h3>
+            <div class="mb-3 row">
+                <div class="col-12">
+                    <div class="alertas d-flex justify-content-center">
+                        <div class="alert alert-danger w-50 text-center d-flex justify-content-around" role="alert">
+                            <b>EL USUARIO INTRODUCIDO NO EXISTE</b>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-12">
+                    <div class="alertas d-flex justify-content-center">
+                        <div class="alert alert-warning w-50 text-center d-flex justify-content-around" role="alert">
+                            <a class="form-control btn btn-danger" href="./adminUser.php">VOLVER</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </form>
+                    ';
     }
 
     mysqli_close($conexion);
@@ -91,7 +119,35 @@ if (isset($_POST["buscar"])){
 
 
 if (isset($_POST["update"])){
-    
+    include "./includes/conexion.php";
+    $id= mysqli_real_escape_string($conexion,$_REQUEST["idUserM"]);
+    $nombre= mysqli_real_escape_string($conexion,trim(strip_tags($_POST["nombre"])));
+    $email= mysqli_real_escape_string($conexion,trim(strip_tags($_POST["email"])));
+    $tipo= mysqli_real_escape_string($conexion,trim(strip_tags($_POST["tipo"])));
+/* NO ME COGE EL ID */
+    $query="UPDATE usuarios 
+            SET nombre = '$nombre',
+                correo= '$email',
+                tipo_usuario = '$tipo'
+            WHERE id_usuario = $id;
+            
+            
+            ";
+
+    if (mysqli_query($conexion,$query)) {
+        echo '<div class="alertas d-flex justify-content-center">
+                                <div class="alert alert-success w-50 text-center d-flex justify-content-around" role="alert">
+                                    <b>MODIFICACION EXITOSA EN LA DATABASE</b>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+                                </div>
+                            </div>';
+    }else{
+        echo "Error al realizar el insert con la query:". $query. mysqli_error($conexion);
+    }
+
+
+    mysqli_close($conexion);
 }
 
 
@@ -192,6 +248,7 @@ function comprobarUser($id_user_desde_form){
                 <h3 class="title primary">
                     MODIFICACION USUARIO
                 </h3>
+                
             </div>
         </div>
 
@@ -203,8 +260,8 @@ function comprobarUser($id_user_desde_form){
 
             
             <!-- UPDATE USER -->
-
-            <div class="col-md-8">
+            <div class="row justify-content-center g-3" id="accordionExample">
+                <div class="col-md-8">
                 
                     <div class="card card-body align-items-center">
 <?php 
@@ -212,6 +269,7 @@ function comprobarUser($id_user_desde_form){
                         echo $form_o_error; 
 ?>
                     </div>
+                </div>
                 
             </div>
         
