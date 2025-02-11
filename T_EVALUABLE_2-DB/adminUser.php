@@ -16,24 +16,6 @@ if (isset($_REQUEST["cerrar-sesion"])) {
   exit();
 }
 
-if (isset($_REQUEST["delete"])) {
-    include './includes/conexion.php';
-    if ($conexion) {
-    
-        
-        $id_user= mysqli_real_escape_string($conexion,$_REQUEST["id_usuario"]);
-        $nombreUser= mysqli_real_escape_string($conexion,$_REQUEST["nombreUsuario"]);
-    }
-    mysqli_close($conexion);
-    deleteUser($id_user,$nombreUser);
-
-
-}
-
-if (isset($_REQUEST["update"])){
-    #codigo
-}
-
 if(isset($_REQUEST["registro"])){
     include './includes/conexion.php';
     
@@ -87,6 +69,24 @@ if(isset($_REQUEST["registro"])){
 
 
 }
+
+if (isset($_REQUEST["delete"])) {
+    include './includes/conexion.php';
+    if ($conexion) {
+    
+        
+        $id_user= mysqli_real_escape_string($conexion,$_REQUEST["id_usuario"]);
+        $nombreUser= mysqli_real_escape_string($conexion,$_REQUEST["nombreUsuario"]);
+    }
+    mysqli_close($conexion);
+    deleteUser($id_user,$nombreUser);
+
+
+}
+
+
+
+
 
 
 /* FUNCIONES */
@@ -205,288 +205,311 @@ function mostrar(){
 
 </head>
 <body>
-<header class="p-4">
-        <div class="row">
-            <div class="col-12 text-center">
-                <h1>Inmobiliaria JGomez</h1>
-            </div>
-
-        </div>
-        <!-- <div class="titulo d-flex flex-row justify-content-center">
-        </div> -->
-
-        <div class="row">
-
-            <div class="navbar col-sm-8 justify-content-center justify-content-md-start">
-                
-                <ul class="nav justify-content-center justify-content-md-start">
-
-                <li class="nav-item p-3">
-                    <a class="nav-link" href="./index.php">VOLVER</a>
-                </li>
-                <li class="nav-item p-3">
-                    <a class="nav-link" href="./adminPiso.php">ADMIN PISOS</a>
-                </li>
-                
-            </div>
-
-            <div class="sesion col-sm-4 d-flex flex-column align-items-center align-items-md-end justify-content-center px-5">
-       
-                    <h6 class="user-activo text-center text-sm-end">
-    <?php
-                    if (isset($_SESSION["email"])) {
-                      echo "usuario: ";
-                      echo $_SESSION["email"];
-                      echo "<br>tipo: ";
-                      echo $_SESSION["tipo_usuario"];
-                      }else{
-                        echo"";
-                    }
-    ?>
-                    </h6>
-    <?php
-                    if (isset($_SESSION["email"])) {
-                    ?>
-                    <form action="" method="post">
-    
-    
-                        <input type="submit" class="btn btn-danger" name="cerrar-sesion" id="cerrar-sesion" value="cerrar-sesion">
-                    </form>
-                    <?php
-                    }else{
-                        echo"";
-                    }
-    ?>               
+    <header class="p-4">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h1>Inmobiliaria JGomez</h1>
+                </div>
 
             </div>
-        </div>
+            <!-- <div class="titulo d-flex flex-row justify-content-center">
+            </div> -->
+
+            <div class="row">
+
+                <div class="navbar col-sm-8 justify-content-center justify-content-md-start">
+                    
+                    <ul class="nav justify-content-center justify-content-md-start">
+
+                    <li class="nav-item p-3">
+                        <a class="nav-link" href="./index.php">VOLVER</a>
+                    </li>
+                    <li class="nav-item p-3">
+                        <a class="nav-link" href="./adminPiso.php">ADMIN PISOS</a>
+                    </li>
+                    
+                </div>
+
+                <div class="sesion col-sm-4 d-flex flex-column align-items-center align-items-md-end justify-content-center px-5">
+        
+                        <h6 class="user-activo text-center text-sm-end">
+        <?php
+                        if (isset($_SESSION["email"])) {
+                        echo "usuario: ";
+                        echo $_SESSION["email"];
+                        echo "<br>tipo: ";
+                        echo $_SESSION["tipo_usuario"];
+                        }else{
+                            echo"";
+                        }
+        ?>
+                        </h6>
+        <?php
+                        if (isset($_SESSION["email"])) {
+                        ?>
+                        <form action="" method="post">
+        
+        
+                            <input type="submit" class="btn btn-danger" name="cerrar-sesion" id="cerrar-sesion" value="cerrar-sesion">
+                        </form>
+                        <?php
+                        }else{
+                            echo"";
+                        }
+        ?>               
+
+                </div>
+            </div>
 
     </header>
+
     <main class="container-lg">
-    <div class="row p-2">
-        <div class="col-12 text-center">
-            <h3 class="title primary">
-                ADMINISTRACION DE USUARIOS
-            </h3>
-        </div>
-    </div>
-
-
-    <!-- BOTONES -->
-
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 row-cols-lg-5 mt-2 p-2">
-        <!-- Botón Nuevo -->
-        <div class="col mb-1">
-            <button class="btn btn-success w-100" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#multiCollapseExample1"
-                    aria-expanded="false" aria-controls="multiCollapseExample1">
-            Nuevo
-            </button>
-        </div>
-        
-        <!-- Botón Eliminar -->
-        <div class="col mb-1">
-            <button class="btn btn-danger w-100" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2"
-                    aria-expanded="false" aria-controls="multiCollapseExample2">
-            Eliminar
-            </button>
-        </div>
-        
-        <!-- Botón Modificar -->
-        <div class="col mb-1">
-            <button class="btn btn-warning w-100" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#multiCollapseExample3"
-                    aria-expanded="false" aria-controls="multiCollapseExample3">
-            Modificar
-            </button>
-        </div>
-        
-        <!-- Botón Buscar -->
-        <div class="col mb-1">
-            <button class="btn btn-secondary w-100" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#multiCollapseExample4"
-                    aria-expanded="false" aria-controls="multiCollapseExample4">
-            Buscar
-            </button>
-        </div>
-        
-        <!-- Botón Mostrar -->
-        <div class="col mb-1">
-            <button class="btn btn-primary w-100" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#multiCollapseExample5"
-                    aria-expanded="false" aria-controls="multiCollapseExample5">
-            Mostrar
-            </button>
-        </div>
-    </div>
-
-    
-
-    <!-- RELLENO DE LOS MENUS -->
-    <div class="row justify-content-center g-3" id="accordionExample">
-        <!--NUEVO USER -->
-        <div class="col-md-8">
-            <div class="collapse multi-collapse" id="multiCollapseExample1" data-bs-parent="#accordionExample">
-                <div class="card card-body align-items-center">
-                    <form action="#" method="post" class="newForm">
-                        <h3 class="titulo text-success text-center mb-3">NUEVO USUARIO</h3>
-
-                        <div class="mb-3 row">
-                            <label for="nombre" class="col-sm-3 col-form-label">Nombre</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" id="nombre" name="nombre" required>
-                            </div>
-                        </div>
-
-                        <div class="mb-3 row">
-                            <label for="email" class="col-sm-3 col-form-label">Email</label>
-                            <div class="col-sm-8">
-                                <input type="email" class="form-control" id="email" name="email" required>
-                            </div>
-                        </div>
-
-                        <div class="mb-3 row">
-                            <label for="inputPassword" class="col-sm-3 col-form-label">Password</label>
-                            <div class="col-sm-8">
-                                <input type="password" class="form-control" id="inputPassword" name="password" required>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="inputPassword" class="col-sm-3 col-form-label">Confirmar Password</label>
-                            <div class="col-sm-8">
-                                <input type="password" class="form-control" id="inputPassword2" name="password2" required>
-                            </div>
-                        </div>
-
-                        <div class="mb-3 row">
-                            <label for="tipo" class="col-sm-4 col-form-label">Tipo</label>
-                            <div class="col-sm-8 d-flex align-items-center justify-content-around">
-                                <label for="comprador">comprador  <input type="radio" id="comprador" name="tipo" value="comprador" required></label>
-                                <label for="vendedor">vendedor  <input type="radio" id="vendedor" name="tipo" value="vendedor"></label>
-                            </div>
-                        </div>
-        
-                        <div class="mt-4 row justify-content-center">
-                            
-                            <div class="col-sm-6 col-md-8 d-flex justify-content-center">
-                            <input type="submit" class="form-control btn btn-success" id="registro" name="registro" value="Dar de Alta">
-                            </div>
-                        </div>
-                    </form>
-                </div>
+        <div class="row p-2">
+            <div class="col-12 text-center">
+                <h3 class="title primary">
+                    ADMINISTRACION DE USUARIOS
+                </h3>
             </div>
         </div>
 
-        <!--DELETE USER -->
-        <div class="col-md-8">
-            <div class="collapse multi-collapse" id="multiCollapseExample2" data-bs-parent="#accordionExample">
-                <div class="card card-body align-items-center">
-                <form class="deleteForm" action="#" method="post">
-    
-                    <h3 class="titulo text-danger text-center mb-3">ELIMINAR USUARIO</h3>
-                    <p class="text-danger">Por seguridad, para eliminar un usuario, hay que introducir id_usuario y nombre, esta acción no tiene vuelta atras*</p>
-                    <p class="text-secondary">*Tambien seran eliminados todos sus pisos</p>
-                    <div class="mb-3 row">
-                        <label for="nombre" class="col-sm-3 col-form-label">Id de Usuario</label>
-                        <div class="col-sm-8">
-                            <input type="number" class="form-control" id="id_usuario" name="id_usuario" required>
-                        </div>
-                    </div>
 
-                    <div class="mb-3 row">
-                        <label for="nombreUsuario" class="col-sm-3 col-form-label">Email</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" required>
-                        </div>
-                    </div>
+        <!-- BOTONES -->
 
-                    
-                    
-                    <div class="mt-4 row justify-content-center">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 row-cols-lg-5 mt-2 p-2">
+            <!-- Botón Nuevo -->
+            <div class="col mb-1">
+                <button class="btn btn-success w-100" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#multiCollapseExample1"
+                        aria-expanded="false" aria-controls="multiCollapseExample1">
+                Nuevo
+                </button>
+            </div>
+            
+            <!-- Botón Eliminar -->
+            <div class="col mb-1">
+                <button class="btn btn-danger w-100" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2"
+                        aria-expanded="false" aria-controls="multiCollapseExample2">
+                Eliminar
+                </button>
+            </div>
+            
+            <!-- Botón Modificar -->
+            <div class="col mb-1">
+                <button class="btn btn-warning w-100" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#multiCollapseExample3"
+                        aria-expanded="false" aria-controls="multiCollapseExample3">
+                Modificar
+                </button>
+            </div>
+            
+            <!-- Botón Buscar -->
+            <div class="col mb-1">
+                <button class="btn btn-secondary w-100" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#multiCollapseExample4"
+                        aria-expanded="false" aria-controls="multiCollapseExample4">
+                Buscar
+                </button>
+            </div>
+            
+            <!-- Botón Mostrar -->
+            <div class="col mb-1">
+                <button class="btn btn-primary w-100" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#multiCollapseExample5"
+                        aria-expanded="false" aria-controls="multiCollapseExample5">
+                Mostrar
+                </button>
+            </div>
+        </div>
+
+        
+
+        <!-- RELLENO DE LOS MENUS -->
+        <div class="row justify-content-center g-3" id="accordionExample">
+            <!--NUEVO USER -->
+            <div class="col-md-8">
+                <div class="collapse multi-collapse" id="multiCollapseExample1" data-bs-parent="#accordionExample">
+                    <div class="card card-body align-items-center">
+                        <form action="#" method="post" class="newForm">
+                            <h3 class="titulo text-success text-center mb-3">NUEVO USUARIO</h3>
+
+                            <div class="mb-3 row">
+                                <label for="nombre" class="col-sm-3 col-form-label">Nombre</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <label for="email" class="col-sm-3 col-form-label">Email</label>
+                                <div class="col-sm-8">
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <label for="inputPassword" class="col-sm-3 col-form-label">Password</label>
+                                <div class="col-sm-8">
+                                    <input type="password" class="form-control" id="inputPassword" name="password" required>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="inputPassword" class="col-sm-3 col-form-label">Confirmar Password</label>
+                                <div class="col-sm-8">
+                                    <input type="password" class="form-control" id="inputPassword2" name="password2" required>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <label for="tipo" class="col-sm-4 col-form-label">Tipo</label>
+                                <div class="col-sm-8 d-flex align-items-center justify-content-around">
+                                    <label for="comprador">comprador  <input type="radio" id="comprador" name="tipo" value="comprador" required></label>
+                                    <label for="vendedor">vendedor  <input type="radio" id="vendedor" name="tipo" value="vendedor"></label>
+                                </div>
+                            </div>
+            
+                            <div class="mt-4 row justify-content-center">
+                                
+                                <div class="col-sm-6 col-md-8 d-flex justify-content-center">
+                                <input type="submit" class="form-control btn btn-success" id="registro" name="registro" value="Dar de Alta">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!--DELETE USER -->
+            <div class="col-md-8">
+                <div class="collapse multi-collapse" id="multiCollapseExample2" data-bs-parent="#accordionExample">
+                    <div class="card card-body align-items-center">
+                    <form class="deleteForm" action="#" method="post">
+        
+                        <h3 class="titulo text-danger text-center mb-3">ELIMINAR USUARIO</h3>
+                        <p class="text-danger">Por seguridad, para eliminar un usuario, hay que introducir id_usuario y nombre, esta acción no tiene vuelta atras*</p>
+                        <p class="text-secondary">*Tambien seran eliminados todos sus pisos</p>
+                        <div class="mb-3 row">
+                            <label for="nombre" class="col-sm-3 col-form-label">Id de Usuario</label>
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control" id="id_usuario" name="id_usuario" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="nombreUsuario" class="col-sm-3 col-form-label">Email</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" required>
+                            </div>
+                        </div>
+
                         
-                        <div class="col-sm-6 col-md-8 d-flex justify-content-center">
-                        <input type="submit" class="form-control btn btn-danger" id="delete" name="delete" value="Eliminar usuario">
-                        </div>
-                    </div>
-
-
-                </form>
-                    
-                </div>
-            </div>
-        </div>
-        
-        <!-- UPDATE USER -->
-
-        <div class="col-md-8">
-            <div class="collapse multi-collapse" id="multiCollapseExample3" data-bs-parent="#accordionExample">
-                <div class="card card-body align-items-center">
-                    <form action="./registro.php" method="post" class="modForm">
-                        <h3 class="titulo text-warning text-center mb-3">MODIFICAR USUARIO</h3>
-                        <div class="mb-3 row">
-                            <label for="nombre" class="col-sm-3 col-form-label">Nombre</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" id="nombre" name="nombre" required>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="email" class="col-sm-3 col-form-label">Email</label>
-                            <div class="col-sm-8">
-                                <input type="email" class="form-control" id="email" name="email" required>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="inputPassword" class="col-sm-3 col-form-label">Password</label>
-                            <div class="col-sm-8">
-                                <input type="password" class="form-control" id="inputPassword" name="password" required>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="inputPassword" class="col-sm-3 col-form-label">Confirmar Password</label>
-                            <div class="col-sm-8">
-                                <input type="password" class="form-control" id="inputPassword2" name="password2" required>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="tipo" class="col-sm-4 col-form-label">Tipo</label>
-                            <div class="col-sm-8 d-flex align-items-center justify-content-around">
-                                <label for="comprador">comprador  <input type="radio" id="comprador" name="tipo" value="comprador" required></label>
-                                <label for="vendedor">vendedor  <input type="radio" id="vendedor" name="tipo" value="vendedor"></label>
-                            </div>
-                        </div>
-        
+                        
                         <div class="mt-4 row justify-content-center">
                             
                             <div class="col-sm-6 col-md-8 d-flex justify-content-center">
-                            <input type="submit" class="form-control btn btn-warning" id="update" name="update" value="Modificar usuario">
+                            <input type="submit" class="form-control btn btn-danger" id="delete" name="delete" value="Eliminar usuario">
                             </div>
                         </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        
-        <!--elemento -->
-        <div class="col-md-8">
-            <div class="collapse multi-collapse" id="multiCollapseExample4" data-bs-parent="#accordionExample">
-                <div class="card card-body align-items-center">
-                    CUATRO.
-                </div>
-            </div>
-        </div>
-        
-        <!--elemento -->
-        <div class="col-md-8">
-            <div class="collapse multi-collapse" id="multiCollapseExample5" data-bs-parent="#accordionExample">
-                <div class="card card-body align-items-center">
-                    <?php
-                    mostrar();
-                    ?>
-                </div>
-            </div>
-        </div>
-    </div>
 
-                </main>
+
+                    </form>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <!-- UPDATE USER -->
+
+            <div class="col-md-8">
+                <div class="collapse multi-collapse" id="multiCollapseExample3" data-bs-parent="#accordionExample">
+                    <div class="card card-body align-items-center">
+                        <form action="buscarUser.php" method="post" class="modForm">
+                            <h3 class="titulo text-warning text-center mb-3">MODIFICAR USUARIO</h3>
+                            <div class="mb-3 row">
+                                <label for="idUser" class="col-sm-3 col-form-label">Id de Usuario</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="idUser" name="idUser">
+                                </div>
+                            </div>
+                            <div class="mt-4 row justify-content-center">
+                                
+                                <div class="col-sm-6 col-md-8 d-flex justify-content-center">
+                                <input type="submit" class="form-control btn btn-warning" id="buscar" name="buscar" value="Buscar">
+                                </div>
+                            </div>
+<!-- 
+ <?php
+                                /* if (isset($_POST["buscar"])) {
+                                    include "./includes/conexion.php";
+
+                                    echo ' <div class="mt-4 row justify-content-center"> ';
+                                
+                                    echo '   <div class="col-sm-6 col-md-8 d-flex justify-content-center">';
+                                    echo '   <input type="submit" class="form-control btn btn-warning" id="buscar" name="buscar" value="Buscar">';
+                                    echo '   </div>';
+                                    echo ' </div>';
+
+
+                                    mysqli_close($conexion);
+                                } */
+?> 
+-->
+                            <!-- <div class="mb-3 row">
+                                <label for="nombre" class="col-sm-3 col-form-label">Nombre</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="nombre" name="nombre" >
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="email" class="col-sm-3 col-form-label">Email</label>
+                                <div class="col-sm-8">
+                                    <input type="email" class="form-control" id="email" name="email" >
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3 row">
+                                <label for="tipo" class="col-sm-4 col-form-label">Tipo</label>
+                                <div class="col-sm-8 d-flex align-items-center justify-content-around">
+                                    <label for="comprador">comprador  <input type="radio" id="comprador" name="tipo" value="comprador"></label>
+                                    <label for="vendedor">vendedor  <input type="radio" id="vendedor" name="tipo" value="vendedor"></label>
+                                </div>
+                            </div> 
+            
+                            <div class="mt-4 row justify-content-center">
+                                
+                                <div class="col-sm-6 col-md-8 d-flex justify-content-center">
+                                <input type="submit" class="form-control btn btn-warning" id="update" name="update" value="Modificar usuario">
+                                </div>
+                            </div>-->
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!--elemento -->
+            <div class="col-md-8">
+                <div class="collapse multi-collapse" id="multiCollapseExample4" data-bs-parent="#accordionExample">
+                    <div class="card card-body align-items-center">
+                        CUATRO.
+                    </div>
+                </div>
+            </div>
+            
+            <!--elemento -->
+            <div class="col-md-8">
+                <div class="collapse multi-collapse" id="multiCollapseExample5" data-bs-parent="#accordionExample">
+                    <div class="card card-body align-items-center">
+                        <?php
+                        mostrar();
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    
     <footer></footer>
+
+</body>
