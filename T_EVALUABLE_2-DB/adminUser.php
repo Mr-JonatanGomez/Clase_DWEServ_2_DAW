@@ -331,7 +331,7 @@ function mostrar(){
                 <div class="collapse multi-collapse" id="multiCollapseExample1" data-bs-parent="#accordionExample">
                     <div class="card card-body align-items-center">
                         <form action="#" method="post" class="newForm">
-                            <h3 class="titulo text-success text-center mb-3">NUEVO USUARIO</h3>
+                            <h2 class="titulo text-success text-center mb-3">NUEVO USUARIO</h2>
 
                             <div class="mb-3 row">
                                 <label for="nombre" class="col-sm-3 col-form-label">Nombre</label>
@@ -385,7 +385,7 @@ function mostrar(){
                     <div class="card card-body align-items-center">
                     <form class="deleteForm" action="#" method="post">
         
-                        <h3 class="titulo text-danger text-center mb-3">ELIMINAR USUARIO</h3>
+                        <h2 class="titulo text-danger text-center mb-3">ELIMINAR USUARIO</h2>
                         <p class="text-danger">Por seguridad, para eliminar un usuario, hay que introducir id_usuario y nombre, esta acción no tiene vuelta atras*</p>
                         <p class="text-secondary">*Tambien seran eliminados todos sus pisos</p>
                         <div class="mb-3 row">
@@ -424,7 +424,7 @@ function mostrar(){
                 <div class="collapse multi-collapse" id="multiCollapseExample3" data-bs-parent="#accordionExample">
                     <div class="card card-body align-items-center">
                         <form action="buscarUser.php" method="post" class="modForm">
-                            <h3 class="titulo text-warning text-center mb-3">MODIFICAR USUARIO</h3>
+                            <h2 class="titulo text-warning text-center mb-3">MODIFICAR USUARIO</h2>
                             <div class="mb-3 row">
                                 <label for="idUser" class="col-sm-3 col-form-label">Id de Usuario</label>
                                 <div class="col-sm-8">
@@ -437,50 +437,7 @@ function mostrar(){
                                 <input type="submit" class="form-control btn btn-warning" id="buscar" name="buscar" value="Buscar">
                                 </div>
                             </div>
-<!-- 
- <?php
-                                /* if (isset($_POST["buscar"])) {
-                                    include "./includes/conexion.php";
 
-                                    echo ' <div class="mt-4 row justify-content-center"> ';
-                                
-                                    echo '   <div class="col-sm-6 col-md-8 d-flex justify-content-center">';
-                                    echo '   <input type="submit" class="form-control btn btn-warning" id="buscar" name="buscar" value="Buscar">';
-                                    echo '   </div>';
-                                    echo ' </div>';
-
-
-                                    mysqli_close($conexion);
-                                } */
-?> 
--->
-                            <!-- <div class="mb-3 row">
-                                <label for="nombre" class="col-sm-3 col-form-label">Nombre</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="nombre" name="nombre" >
-                                </div>
-                            </div>
-                            <div class="mb-3 row">
-                                <label for="email" class="col-sm-3 col-form-label">Email</label>
-                                <div class="col-sm-8">
-                                    <input type="email" class="form-control" id="email" name="email" >
-                                </div>
-                            </div>
-                            
-                            <div class="mb-3 row">
-                                <label for="tipo" class="col-sm-4 col-form-label">Tipo</label>
-                                <div class="col-sm-8 d-flex align-items-center justify-content-around">
-                                    <label for="comprador">comprador  <input type="radio" id="comprador" name="tipo" value="comprador"></label>
-                                    <label for="vendedor">vendedor  <input type="radio" id="vendedor" name="tipo" value="vendedor"></label>
-                                </div>
-                            </div> 
-            
-                            <div class="mt-4 row justify-content-center">
-                                
-                                <div class="col-sm-6 col-md-8 d-flex justify-content-center">
-                                <input type="submit" class="form-control btn btn-warning" id="update" name="update" value="Modificar usuario">
-                                </div>
-                            </div>-->
                             
                         </form>
                     </div>
