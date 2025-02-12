@@ -3,17 +3,7 @@ session_start();
 include './includes/conexion.php';
 
 
-function comprobarUser($id_user_desde_form){
-    # si existe, pasamos user_boolean a true;
-    
-    include './includes/conexion.php';
-    $query= "SELECT * FROM usuarios WHERE id_usuario = $id_user_desde_form";
-    $resultado=mysqli_query($conexion,$query);
-    $existe=  (mysqli_num_rows($resultado)>0);
 
-    mysqli_close($conexion);
-    return $existe;
-} 
 
 if (isset($_REQUEST["cerrar-sesion"])) {
     
@@ -85,6 +75,105 @@ if(isset($_REQUEST["registroP"])){
 
 }
 
+if (isset($_REQUEST["delete"])) {
+    include './includes/conexion.php';
+    if ($conexion) {
+    
+        
+        $id_piso= mysqli_real_escape_string($conexion,$_REQUEST["id_pisoDel"]);
+        $id_user= mysqli_real_escape_string($conexion,$_REQUEST["id_usuarioDel"]);
+    }
+    mysqli_close($conexion);
+    deletePiso($id_piso,$id_user);
+
+
+}
+/* FUNCIONES */
+
+function deletePiso($id_pisoDel,$idPropietarioDel){
+    
+    if (!comprobarUser($idPropietarioDel) && !comprobarPiso($id_pisoDel)) {
+        echo'<div class="alertas d-flex justify-content-center">
+                    <div class="alert alert-danger w-50 text-center d-flex justify-content-around" role="alert">
+                        <b>EL PISO y el PROPIETARIO NO EXISTEN</b>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                   
+                </div>';
+    }elseif (!comprobarUser($idPropietarioDel)) { 
+        echo'<div class="alertas d-flex justify-content-center">
+                    <div class="alert alert-danger w-50 text-center d-flex justify-content-around" role="alert">
+                        <b>EL PROPIETARIO NO EXISTEN</b>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                   
+                </div>';
+    }elseif (!comprobarPiso($id_pisoDel)) { 
+        echo'<div class="alertas d-flex justify-content-center">
+                    <div class="alert alert-danger w-50 text-center d-flex justify-content-around" role="alert">
+                        <b>EL PISO NO EXISTE</b>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                   
+                </div>';
+    }else{
+        include './includes/conexion.php';
+            $query=" DELETE 
+            FROM pisos 
+            WHERE id_piso = $id_pisoDel AND id_usuario = '$idPropietarioDel';
+                    ";
+        
+    
+        if (mysqli_query($conexion, $query)) {
+            echo'<div class="alertas d-flex justify-content-center">
+                        <div class="alert alert-success w-50 text-center d-flex justify-content-around" role="alert">
+                            <b>EL Piso con ID = '.  $id_pisoDel .', HA SIDO ELIMINADO CON EXITO</b>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+                        </div>
+                       
+                    </div>';
+        }else {
+            echo '<div class="alertas d-flex justify-content-center">
+                    <div class="alert alert-danger w-50 text-center d-flex justify-content-around" role="alert">
+                        <b>Error al eliminar el PISO.</b>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                  </div>';
+        }
+    
+    
+        
+        mysqli_close($conexion);
+    }
+    
+    
+    
+}
+
+function comprobarUser($id_user_desde_form){
+    # si existe, pasamos user_boolean a true;
+    
+    include './includes/conexion.php';
+    $query= "SELECT * FROM usuarios WHERE id_usuario = $id_user_desde_form";
+    $resultado=mysqli_query($conexion,$query);
+    $existe=  (mysqli_num_rows($resultado)>0);
+
+    mysqli_close($conexion);
+    return $existe;
+} 
+
+function comprobarPiso($id_piso_from_form){
+    # si existe, pasamos user_boolean a true;
+    
+    include './includes/conexion.php';
+    $query= "SELECT * FROM pisos WHERE id_piso = $id_piso_from_form";
+    $resultado=mysqli_query($conexion,$query);
+    $existePiso=  (mysqli_num_rows($resultado)>0);
+
+    mysqli_close($conexion);
+    return $existePiso;
+}
 
 ?>
 
@@ -299,18 +388,18 @@ if(isset($_REQUEST["registroP"])){
                     <form class="deleteForm" action="#" method="post">
         
                         <h1 class="titulo text-danger text-center mb-3">ELIMINAR PISO</h1>
-                        <p class="text-danger">Por seguridad, para eliminar un usuario, hay que introducir id_usuario y nombre, esta acción no tiene vuelta atras</p>
+                        <p class="text-danger">Por seguridad, para eliminar un piso, hay que introducir id_piso e Id_propietario, esta acción no tiene vuelta atras</p>
                         <div class="mb-3 row">
-                            <label for="nombre" class="col-sm-3 col-form-label">Id de Usuario</label>
+                            <label for="id_pisoDel" class="col-sm-3 col-form-label">Id de Piso</label>
                             <div class="col-sm-8">
-                                <input type="number" class="form-control" id="id_usuario" name="id_usuario" required>
+                                <input type="number" class="form-control" id="id_pisoDel" name="id_pisoDel" required>
                             </div>
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="nombreUsuario" class="col-sm-3 col-form-label">Email</label>
+                            <label for="id_usuarioDel" class="col-sm-3 col-form-label">Id de Propietario</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" required>
+                                <input type="number" class="form-control" id="id_usuarioDel" name="id_usuarioDel" required>
                             </div>
                         </div>
 
@@ -319,7 +408,7 @@ if(isset($_REQUEST["registroP"])){
                         <div class="mt-4 row justify-content-center">
                             
                             <div class="col-sm-6 col-md-8 d-flex justify-content-center">
-                            <input type="submit" class="form-control btn btn-danger" id="delete" name="delete" value="Eliminar usuario">
+                            <input type="submit" class="form-control btn btn-danger" id="delete" name="delete" value="Eliminar Piso">
                             </div>
                         </div>
 
