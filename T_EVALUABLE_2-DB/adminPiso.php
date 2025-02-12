@@ -455,7 +455,7 @@ function comprobarPiso($id_piso_from_form){
 ?>
             
             <div class="col-md-12">
-                <div class=>
+                <div class= data-bs-parent="#accordionExample">
                     <div class="card card-body align-items-center">
                         <?php
 
