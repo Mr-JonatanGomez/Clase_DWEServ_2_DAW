@@ -219,7 +219,7 @@ function comprobarPiso($id_piso_from_form){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administracion de Usuarios</title>
+    <title>Administracion de Pisos</title>
     <?php include './includes/head-libraries.php'; ?>
 
 </head>
@@ -287,7 +287,7 @@ function comprobarPiso($id_piso_from_form){
         <div class="row p-2">
             <div class="col-12 text-center">
                 <h3 class="title primary">
-                    MODIFICACION USUARIO
+                    MODIFICACION PISO
                 </h3>
                 
             </div>

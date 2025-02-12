@@ -444,16 +444,116 @@ function comprobarPiso($id_piso_from_form){
                 </div>
             </div>
             
-            <!--elemento -->
-            <div class="col-md-8">
-                <div class="collapse multi-collapse" id="multiCollapseExample4" data-bs-parent="#accordionExample">
+            <!--FILTRAR-->
+<?php
+            if (isset($_REQUEST["filtrar"])) {
+                /* ESTO ME ACORDE EN ESTE PUNTO QUE LO DESARROLLE EL ULTIMO, 
+                podia haber hecho asi el UPDATE en un solo archivo, 
+                pero esto es mas largo que pasar hambre  SI LEES ESTO, PERDON POR ESTE FRANKESTEIN
+                pero llevo mas de 40 horas aqui invertidas, quedan 10 días y me quedan 4 evaluables más por delante, 
+                y todavia me queda implementar el filtrar en USUARIO , y dar funcionalidad al boton de comprar*/
+?>
+            
+            <div class="col-md-12">
+                <div class=>
                     <div class="card card-body align-items-center">
-                        CUATRO.
+                        <?php
+
+                            $filtrado =mysqli_real_escape_string($conexion,trim(strip_tags($_REQUEST["filtroP"])));
+                            include './includes/conexion.php';
+                            echo'
+                            <table class="table">
+                            <thead>
+                            <tr>
+                                <th class="d-none d-md-table-cell scope="col">id</th>
+                                <th scope="col">Poblacion</th>
+                                <th scope="col">m²</th>
+                                <th scope="col">Precio</th>
+                                <th scope="col" class="d-none d-md-table-cell">Direccion</th>
+                                <th scope="col">Dueño</th>
+                                <th scope="col"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            ';
+                            $query="SELECT id_piso, poblacion, metros, precio, calle, numero, piso, puerta, usuarios.nombre AS dueño
+                            FROM pisos
+                            LEFT JOIN usuarios USING(id_usuario)
+                            WHERE poblacion LIKE '%$filtrado%'
+                            GROUP BY id_piso, poblacion, metros, precio, calle, numero, piso, puerta, dueño
+                            ";
+                            $resultadoQuery= mysqli_query($conexion, $query);
+                            if (mysqli_num_rows($resultadoQuery)>0) {
+                            while ($row=mysqli_fetch_assoc($resultadoQuery)) {
+                                #obtenemos var y pintamos cada fila por su row[campo]
+                                echo'
+                                <tr>
+                                <th class="d-none d-md-table-cell scope="row">'.$row['id_piso'].'</th>';
+                                echo'<td>'.$row['poblacion'].'</td>';
+                                echo'<td>'.$row['metros'].'</td>';
+                                echo'<td>'.$row['precio'].'</td>';
+                                echo '<td class="d-none d-md-table-cell">Calle '.$row['calle'].
+                                    ' Nº '.$row['numero'].
+                                    ' Piso '.$row['piso'].'º'.
+                                    $row['puerta'].'</td>';
+                                echo'<td>'.$row['dueño'].'</td>';
+                                
+                            }
+                            }else{
+                                echo '<div class="alertas d-flex justify-content-center">
+                    <div class="alert alert-danger w-50 text-center d-flex justify-content-around" role="alert">
+                        <b>NINGUN PISO REUNE LAS CONDICIONES.</b>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                  </div>';
+                            }
+                            echo '</tbody></table>';
+
+
+
+                        ?>
                     </div>
                 </div>
             </div>
+                
+
+<?php
+            }else{
+?>
+            <div class="col-md-8">
+                <div class="collapse multi-collapse" id="multiCollapseExample4" data-bs-parent="#accordionExample">
+                    <div class="card card-body align-items-center">
+                        <form action="" method="post" class="searchForm">
+                        
+                            <h2 class="titulo text-secondary text-center mb-3">FILTRAR POR POBLACION</h2>
+                            <p class="text-secondary text-center">puedes filtrar por poblacion, no necesariamente tienes que meter el nombre integro</p>
+                            <div class="mb-3 row">
+                                <label for="filtraP" class="col-sm-3 col-form-label">Poblacion</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="filtroP" name="filtroP">
+                                </div>
+                            </div>
+                            <div class="mt-4 row justify-content-center">
+                                
+                                <div class="col-sm-6 col-md-8 d-flex justify-content-center">
+                                <input type="submit" class="form-control btn btn-secondary" id="filtrar" name="filtrar" value="filtrar">
+                                </div>
+                            </div>
+
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+<?php
+            }
+
+?>
+
+
             
-            <!--elemento -->
+            
+            <!--MOSTRAR -->
             <div class="col-md-12">
                 <div class="collapse multi-collapse" id="multiCollapseExample5" data-bs-parent="#accordionExample">
                     <div class="card card-body align-items-center">
@@ -505,7 +605,7 @@ function comprobarPiso($id_piso_from_form){
                     </div>
                 </div>
             </div>
-        </div>
+        
 
     </main>
 
