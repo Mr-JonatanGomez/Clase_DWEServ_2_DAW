@@ -15,6 +15,55 @@ if (isset($_REQUEST["cerrar-sesion"])) {
   header("Location: index.php"); // o la página que desees
   exit();
 }
+
+
+if (isset($_REQUEST["comprar"])){
+  include "./includes/conexion.php";
+
+  $pisoParaCompra = mysqli_real_escape_string($conexion, $_REQUEST["id_pisoBuy"]); 
+  $propietarioActual = mysqli_real_escape_string($conexion, $_REQUEST["id_propietario"]); 
+  $precio = mysqli_real_escape_string($conexion, $_REQUEST["precioVenta"]); 
+  $comprador= $_SESSION["id_usuario"];
+
+  /* echo"id Piso". $pisoParaCompra ."<br>";
+  echo"id Propiet". $propietario; */
+  $query="INSERT INTO ventas (usuario_comprador, id_piso, precio_final, usuario_vendedor)
+          VALUES($comprador, $pisoParaCompra,$precio,$propietarioActual);
+  ";
+
+  $queryActu= "UPDATE pisos 
+              SET id_usuario = $comprador
+              WHERE id_piso = $pisoParaCompra;";
+
+
+  
+
+  if (mysqli_query($conexion,$query) && mysqli_query($conexion, $queryActu)) {
+    echo'<div class="alertas d-flex justify-content-center">
+                        <div class="alert alert-success w-50 text-center d-flex justify-content-around" role="alert">
+                            <b>El piso ha sido comprado con exito</b>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+                        </div>
+                       
+                    </div>';
+
+  }else{
+    echo'<div class="alertas d-flex justify-content-center">
+                        <div class="alert alert-danger w-50 text-center d-flex justify-content-around" role="alert">
+                            <b>Hubo un error y el piso no ha podido ser comprado</b>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+                        </div>
+                       
+                    </div>';
+  }
+
+
+
+  mysqli_close($conexion);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -139,7 +188,7 @@ if (isset($_SESSION["tipo_usuario"])&& $_SESSION["tipo_usuario"] =="vendedor") {
   <tbody>
   ';
 
-  $query="SELECT id_piso, poblacion, metros, precio, calle, numero, piso, puerta FROM pisos";
+  $query="SELECT id_piso, poblacion, metros, precio, calle, numero, piso, puerta, id_usuario FROM pisos";
   $resultadoQuery= mysqli_query($conexion, $query);
 
   
@@ -160,9 +209,13 @@ if (isset($_SESSION["tipo_usuario"])&& $_SESSION["tipo_usuario"] =="vendedor") {
 
       if (isset($_SESSION["tipo_usuario"])&& $_SESSION["tipo_usuario"] =="comprador") {
         
+        # CREO UN CAMPO HIDDEN PARA ASIGNAR AQUI AL BOTON EL ID DEL PISO, PRECIO y USUARIO PROPIETARIO
         echo'
         <td>
         <form action="" method="post">
+            <input type="hidden" name="id_pisoBuy" value="'.$row['id_piso'].'">
+            <input type="hidden" name="id_propietario" value="'.$row['id_usuario'].'">
+            <input type="hidden" name="precioVenta" value="'.$row['precio'].'">
             <input type="submit" class="btn btn-success" name="comprar" id="comprar" value="BUY">
         </form>
         </td>

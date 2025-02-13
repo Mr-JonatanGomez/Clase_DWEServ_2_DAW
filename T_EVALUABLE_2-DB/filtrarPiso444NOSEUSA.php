@@ -170,21 +170,24 @@ function comprobarPiso($id_piso_from_form){
                             ";
                             $resultadoQuery= mysqli_query($conexion, $query);
                             if (mysqli_num_rows($resultadoQuery)>0) {
-                            while ($row=mysqli_fetch_assoc($resultadoQuery)) {
-                                #obtenemos var y pintamos cada fila por su row[campo]
-                                echo'
-                                <tr>
-                                <th class="d-none d-md-table-cell scope="row">'.$row['id_piso'].'</th>';
-                                echo'<td>'.$row['poblacion'].'</td>';
-                                echo'<td>'.$row['metros'].'</td>';
-                                echo'<td>'.$row['precio'].'</td>';
-                                echo '<td class="d-none d-md-table-cell">Calle '.$row['calle'].
-                                    ' Nº '.$row['numero'].
-                                    ' Piso '.$row['piso'].'º'.
-                                    $row['puerta'].'</td>';
-                                echo'<td>'.$row['dueño'].'</td>';
-                                
-                            }
+                                while ($row=mysqli_fetch_assoc($resultadoQuery)) {
+                                    #obtenemos var y pintamos cada fila por su row[campo]
+                                    echo'
+                                    <tr>
+                                    <th class="d-none d-md-table-cell scope="row">'.$row['id_piso'].'</th>';
+                                    echo'<td>'.$row['poblacion'].'</td>';
+                                    echo'<td>'.$row['metros'].'</td>';
+                                    echo'<td>'.$row['precio'].'</td>';
+                                    echo '<td class="d-none d-md-table-cell">Calle '.$row['calle'].
+                                        ' Nº '.$row['numero'].
+                                        ' Piso '.$row['piso'].'º'.
+                                        $row['puerta'].'</td>';
+                                    echo'<td>'.$row['dueño'].'</td>';
+                                    
+                                }
+                                echo '<div class="col-sm-6 col-md-8 d-flex justify-content-center">';
+                                echo '<input type="submit" class="form-control btn btn-secondary" id="volver" name="volver" value="Volver">';
+                                echo '</div>';
                             }else{
                                 echo '<div class="alertas d-flex justify-content-center">
                     <div class="alert alert-danger w-50 text-center d-flex justify-content-around" role="alert">

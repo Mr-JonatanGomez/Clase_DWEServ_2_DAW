@@ -275,7 +275,7 @@ function mostrar(){
 
         <!-- BOTONES -->
 
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 row-cols-lg-5 mt-2 p-2">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 row-cols-lg-5 mt-2 p-2 justify-content-center">
             <!-- Botón Nuevo -->
             <div class="col mb-1">
                 <button class="btn btn-success w-100" type="button"
@@ -304,13 +304,13 @@ function mostrar(){
             </div>
             
             <!-- Botón Buscar -->
-            <div class="col mb-1">
+         <!--    <div class="col mb-1">
                 <button class="btn btn-secondary w-100" type="button"
                         data-bs-toggle="collapse" data-bs-target="#multiCollapseExample4"
                         aria-expanded="false" aria-controls="multiCollapseExample4">
-                Buscar
+                Filtrar
                 </button>
-            </div>
+            </div> -->
             
             <!-- Botón Mostrar -->
             <div class="col mb-1">
@@ -444,14 +444,14 @@ function mostrar(){
                 </div>
             </div>
             
-            <!--elemento -->
-            <div class="col-md-8">
+            <!--FILTRAR USER -->
+           <!--  <div class="col-md-8">
                 <div class="collapse multi-collapse" id="multiCollapseExample4" data-bs-parent="#accordionExample">
                     <div class="card card-body align-items-center">
                         CUATRO.
                     </div>
                 </div>
-            </div>
+            </div> -->
             
             <!--elemento -->
             <div class="col-md-8">

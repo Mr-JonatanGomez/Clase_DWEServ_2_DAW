@@ -287,9 +287,9 @@ function comprobarPiso($id_piso_from_form){
             <!-- Botón Buscar -->
             <div class="col mb-1">
                 <button class="btn btn-secondary w-100" type="button"
-                        data-bs-toggle="collapse" data-bs-target="#multiCollapseExample4"
-                        aria-expanded="false" aria-controls="multiCollapseExample4">
-                Buscar
+                        data-bs-toggle="collapse" data-bs-target="#multiCollapseFiltrar"
+                        aria-expanded="false" aria-controls="multiCollapseFiltrar">
+                Filtrar
                 </button>
             </div>
             
@@ -446,110 +446,102 @@ function comprobarPiso($id_piso_from_form){
             
             <!--FILTRAR-->
 <?php
-            if (isset($_REQUEST["filtrar"])) {
-                /* ESTO ME ACORDE EN ESTE PUNTO QUE LO DESARROLLE EL ULTIMO, 
-                podia haber hecho asi el UPDATE en un solo archivo, 
-                pero esto es mas largo que pasar hambre  SI LEES ESTO, PERDON POR ESTE FRANKESTEIN
-                pero llevo mas de 40 horas aqui invertidas, quedan 10 días y me quedan 4 evaluables más por delante, 
-                y todavia me queda implementar el filtrar en USUARIO , y dar funcionalidad al boton de comprar*/
-?>
-            
-            <div class="col-md-12">
-                <div class= data-bs-parent="#accordionExample">
-                    <div class="card card-body align-items-center">
-                        <?php
 
-                            $filtrado =mysqli_real_escape_string($conexion,trim(strip_tags($_REQUEST["filtroP"])));
-                            include './includes/conexion.php';
-                            echo'
-                            <table class="table">
-                            <thead>
-                            <tr>
-                                <th class="d-none d-md-table-cell scope="col">id</th>
-                                <th scope="col">Poblacion</th>
-                                <th scope="col">m²</th>
-                                <th scope="col">Precio</th>
-                                <th scope="col" class="d-none d-md-table-cell">Direccion</th>
-                                <th scope="col">Dueño</th>
-                                <th scope="col"></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            ';
-                            $query="SELECT id_piso, poblacion, metros, precio, calle, numero, piso, puerta, usuarios.nombre AS dueño
-                            FROM pisos
-                            LEFT JOIN usuarios USING(id_usuario)
-                            WHERE poblacion LIKE '%$filtrado%'
-                            GROUP BY id_piso, poblacion, metros, precio, calle, numero, piso, puerta, dueño
-                            ";
-                            $resultadoQuery= mysqli_query($conexion, $query);
-                            if (mysqli_num_rows($resultadoQuery)>0) {
-                            while ($row=mysqli_fetch_assoc($resultadoQuery)) {
-                                #obtenemos var y pintamos cada fila por su row[campo]
-                                echo'
-                                <tr>
-                                <th class="d-none d-md-table-cell scope="row">'.$row['id_piso'].'</th>';
-                                echo'<td>'.$row['poblacion'].'</td>';
-                                echo'<td>'.$row['metros'].'</td>';
-                                echo'<td>'.$row['precio'].'</td>';
-                                echo '<td class="d-none d-md-table-cell">Calle '.$row['calle'].
-                                    ' Nº '.$row['numero'].
-                                    ' Piso '.$row['piso'].'º'.
-                                    $row['puerta'].'</td>';
-                                echo'<td>'.$row['dueño'].'</td>';
-                                
-                            }
-                            }else{
-                                echo '<div class="alertas d-flex justify-content-center">
-                    <div class="alert alert-danger w-50 text-center d-flex justify-content-around" role="alert">
-                        <b>NINGUN PISO REUNE LAS CONDICIONES.</b>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                  </div>';
-                            }
-                            echo '</tbody></table>';
+            $mostrarResultados = false;
+            $resultadosHTML = ''; // Variable para guardar la tabla de resultados filtrados
 
-
-
-                        ?>
-                    </div>
-                </div>
-            </div>
+            if (isset($_REQUEST["filtrarIni"])) {
+                // Se envió el formulario de filtrado
+                $filtrado = mysqli_real_escape_string($conexion, trim(strip_tags($_REQUEST["filtroP"])));
                 
+                // Construimos la tabla de resultados
+                $resultadosHTML .= '
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="d-none d-md-table-cell" scope="col">id</th>
+                            <th scope="col">Poblacion</th>
+                            <th scope="col">m²</th>
+                            <th scope="col">Precio</th>
+                            <th class="d-none d-md-table-cell" scope="col">Direccion</th>
+                            <th scope="col">Dueño</th>
+                        </tr>
+                    </thead>
+                    <tbody>';
+                
+                $query = "SELECT id_piso, poblacion, metros, precio, calle, numero, piso, puerta, usuarios.nombre AS dueño
+                        FROM pisos
+                        LEFT JOIN usuarios USING(id_usuario)
+                        WHERE poblacion LIKE '%$filtrado%'
+                        GROUP BY id_piso, poblacion, metros, precio, calle, numero, piso, puerta, dueño";
 
-<?php
-            }else{
-?>
+                $resultadoQuery = mysqli_query($conexion, $query);
+                if (mysqli_num_rows($resultadoQuery) > 0) {
+                    while ($row = mysqli_fetch_assoc($resultadoQuery)) {
+                        $resultadosHTML .= '
+                        <tr>
+                            <th class="d-none d-md-table-cell" scope="row">'.$row['id_piso'].'</th>
+                            <td>'.$row['poblacion'].'</td>
+                            <td>'.$row['metros'].'</td>
+                            <td>'.$row['precio'].'</td>
+                            <td class="d-none d-md-table-cell">Calle '.$row['calle'].' Nº '.$row['numero'].' Piso '.$row['piso'].'º '.$row['puerta'].'</td>
+                            <td>'.$row['dueño'].'</td>
+                        </tr>';
+                    }
+                } else {
+                    $resultadosHTML .= '
+                    <tr>
+                        <td colspan="6">
+                            <div class="alert alert-danger text-center" role="alert">
+                                <b>NINGUN PISO REÚNE LAS CONDICIONES.</b>
+                            </div>
+                        </td>
+                    </tr>';
+                }
+                $resultadosHTML .= '</tbody></table>';
+                
+                // Indicamos que se mostrarán los resultados
+                $mostrarResultados = true;
+            }
+            ?>
+            <!-- Contenedor Collapse para Filtrar -->
             <div class="col-md-8">
-                <div class="collapse multi-collapse" id="multiCollapseExample4" data-bs-parent="#accordionExample">
+                <!-- Usamos un ID único para esta sección, por ejemplo: multiCollapseFiltrar -->
+                <div class="collapse multi-collapse 
+<?php               
+                echo ($mostrarResultados) ? 'show' : ''; 
+?>
+                    " id="multiCollapseFiltrar" data-bs-parent="#accordionExample">
                     <div class="card card-body align-items-center">
-                        <form action="" method="post" class="searchForm">
-                        
-                            <h2 class="titulo text-secondary text-center mb-3">FILTRAR POR POBLACION</h2>
-                            <p class="text-secondary text-center">puedes filtrar por poblacion, no necesariamente tienes que meter el nombre integro</p>
-                            <div class="mb-3 row">
-                                <label for="filtraP" class="col-sm-3 col-form-label">Poblacion</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="filtroP" name="filtroP">
+        
+<?php      
+                    if ($mostrarResultados): 
+?>
+                            <!-- Mostrar resultados filtrados -->
+                            <?php echo $resultadosHTML; ?>
+                            <!-- Botón de reset para recargar la página (limpiar el filtro) -->
+                            <button type="button" class="btn btn-secondary mt-3" onclick="window.location.href='adminPiso.php'">Resetear filtro</button>
+                        <?php else: ?>
+                            <!-- Mostrar formulario de filtrado -->
+                            <form action="" method="post" class="searchForm">
+                                <h2 class="titulo text-secondary text-center mb-3">FILTRAR POR POBLACION</h2>
+                                <p class="text-secondary text-center">Puedes filtrar por población, no es necesario ingresar el nombre completo.</p>
+                                <div class="mb-3 row">
+                                    <label for="filtroP" class="col-sm-3 col-form-label">Poblacion</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="filtroP" name="filtroP">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="mt-4 row justify-content-center">
-                                
-                                <div class="col-sm-6 col-md-8 d-flex justify-content-center">
-                                <input type="submit" class="form-control btn btn-secondary" id="filtrar" name="filtrar" value="filtrar">
+                                <div class="mt-4 row justify-content-center">
+                                    <div class="col-sm-6 col-md-8 d-flex justify-content-center">
+                                        <input type="submit" class="form-control btn btn-secondary" id="filtrarIni" name="filtrarIni" value="Filtrar">
+                                    </div>
                                 </div>
-                            </div>
-
-                            
-                        </form>
+                            </form>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
-<?php
-            }
-
-?>
-
 
             
             
@@ -581,27 +573,31 @@ function comprobarPiso($id_piso_from_form){
                             ";
                             $resultadoQuery= mysqli_query($conexion, $query);
                             if (mysqli_num_rows($resultadoQuery)>0) {
-                            while ($row=mysqli_fetch_assoc($resultadoQuery)) {
-                                #obtenemos var y pintamos cada fila por su row[campo]
-                                echo'
-                                <tr>
-                                <th class="d-none d-md-table-cell scope="row">'.$row['id_piso'].'</th>';
-                                echo'<td>'.$row['poblacion'].'</td>';
-                                echo'<td>'.$row['metros'].'</td>';
-                                echo'<td>'.$row['precio'].'</td>';
-                                echo '<td class="d-none d-md-table-cell">Calle '.$row['calle'].
-                                    ' Nº '.$row['numero'].
-                                    ' Piso '.$row['piso'].'º'.
-                                    $row['puerta'].'</td>';
-                                echo'<td>'.$row['dueño'].'</td>';
-                                
-                            }
+                                while ($row=mysqli_fetch_assoc($resultadoQuery)) {
+                                    #obtenemos var y pintamos cada fila por su row[campo]
+                                    echo'
+                                    <tr>
+                                    <th class="d-none d-md-table-cell scope="row">'.$row['id_piso'].'</th>';
+                                    echo'<td>'.$row['poblacion'].'</td>';
+                                    echo'<td>'.$row['metros'].'</td>';
+                                    echo'<td>'.$row['precio'].'</td>';
+                                    echo '<td class="d-none d-md-table-cell">Calle '.$row['calle'].
+                                        ' Nº '.$row['numero'].
+                                        ' Piso '.$row['piso'].'º'.
+                                        $row['puerta'].'</td>';
+                                    echo'<td>'.$row['dueño'].'</td>';
+                                    
+                                }
+
                             }
                             echo '</tbody></table>';
-
+                            
+                            
+                    mysqli_close($conexion);
 
 
                         ?>
+                        
                     </div>
                 </div>
             </div>
