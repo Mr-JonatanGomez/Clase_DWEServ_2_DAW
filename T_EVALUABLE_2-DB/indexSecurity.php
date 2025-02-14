@@ -186,7 +186,7 @@ if (isset($_REQUEST["comprar"])){
           #obtenemos var y pintamos cada fila por su row[campo]
 
         ?>
-            <div class="col-12 col-sm-5 mb-5 miCard p-3">
+            <div class="col-12 col-sm-5 mb-3 miCard p-3">
             <div class="card border-0 text-center">
               <img src="./utils//img/Imagen principal.webp" class="card-img-top img-fluid w-75 mx-auto" alt="...">
               <div class="card-body">
@@ -244,62 +244,47 @@ if (isset($_REQUEST["comprar"])){
 </html>
 
 
-<!-- <main class="container-lg CON CARRUSEL">
- 
-  <div id="carouselCards" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-      APERTURA PHP
-        include './includes/conexion.php';
-        $query = "SELECT id_piso, poblacion, metros, precio, calle, numero, piso, puerta, id_usuario FROM pisos";
-        $resultadoQuery = mysqli_query($conexion, $query);
-        
-        // Variable para marcar el primer slide como activo
-        $active = 'active';
+<!-- 
+CARRUSEl
 
-        if (mysqli_num_rows($resultadoQuery) > 0) {
-          while ($row = mysqli_fetch_assoc($resultadoQuery)) {
-            echo '<div class="carousel-item ' . $active . '">';
-            // Solo el primer slide debe llevar la clase "active"
-            $active = '';
-            
-            // Para centrar la card, le damos un ancho máximo y usamos mx-auto
-            echo '<div class="card text-center mx-auto" style="max-width: 400px;">';
-              echo '<img src="./utils/img/Imagen principal.webp" class="card-img-top img-fluid w-75 mx-auto p-2" alt="Imagen del piso">';
-              echo '<div class="card-body">';
-                echo '<h3 class="card-title">' . $row['id_piso'] . '. ' . $row['poblacion'] . '</h3>';
-                echo '<p class="card-text">Calle ' . $row['calle'] . ' Nº ' . $row['numero'] . ' Piso ' . $row['piso'] . 'º ' . $row['puerta'] . '</p>';
-              echo '</div>';
-              echo '<ul class="list-group list-group-flush">';
-                echo '<li class="list-group-item">' . $row['metros'] . ' m²</li>';
-                echo '<li class="list-group-item"><strong>' . $row['precio'] . ' €</strong></li>';
-              echo '</ul>';
-              echo '<div class="card-body">';
-                if (isset($_SESSION["tipo_usuario"]) && $_SESSION["tipo_usuario"] == "comprador") {
-                  echo '<form action="" method="post">';
-                    echo '<input type="hidden" name="id_pisoBuy" value="' . $row['id_piso'] . '">';
-                    echo '<input type="hidden" name="id_propietario" value="' . $row['id_usuario'] . '">';
-                    echo '<input type="hidden" name="precioVenta" value="' . $row['precio'] . '">';
-                    echo '<input type="submit" class="btn btn-success" name="comprar" id="comprar" value="BUY">';
-                  echo '</form>';
-                }
-              echo '</div>';
-            echo '</div>'; // Fin de la card
-            echo '</div>'; // Fin del carousel-item
-          }
-        }
-        mysqli_close($conexion);
-      AQUI CIERRE PHP
+<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="..." class="d-block w-100" alt="...">
     </div>
-   
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselCards" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Anterior</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselCards" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Siguiente</span>
-    </button>
+    <div class="carousel-item">
+      <img src="..." class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="..." class="d-block w-100" alt="...">
+    </div>
   </div>
-</main> -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
 
 
+CARD
+<div class="card" style="width: 18rem;">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">An item</li>
+    <li class="list-group-item">A second item</li>
+    <li class="list-group-item">A third item</li>
+  </ul>
+  <div class="card-body">
+    <a href="#" class="card-link">Card link</a>
+    <a href="#" class="card-link">Another link</a>
+  </div>
+</div>
+-->

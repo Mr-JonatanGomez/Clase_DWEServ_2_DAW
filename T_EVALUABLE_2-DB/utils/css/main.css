@@ -119,6 +119,12 @@ footer{
 .table tbody tr {
     height: 85px;
 }
+.miCard, .card-img-top{
+    
+    border: 3px ridge rgb(13, 110, 253)!important;
+    border-radius: 0 !important;
+}
+
 
 .card-body{
     border: none;
