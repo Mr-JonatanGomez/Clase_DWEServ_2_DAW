@@ -148,22 +148,7 @@ if(isset($_REQUEST["registro"]))
     <?php include './includes/head-libraries.php'; ?>
 </head>
 <body>
-    <!-- 
-ESTO VA A SER EL LOGIN
-
-
-    AL HACER LOGIN HAY QUE VERIFICAR QUE USUARIO EXISTE, 
-    Y SE SER ASI, QUE EL PASSWORD COINCIDE EN LA DATABASE
-
-    TAREAS NECESARIAS :
-    v 1-FORM CON CORREO Y PASS
-    v 2-GUARDAR EN VARIABLE, y BUSCAR EN DATABASE SI EXISTE Y ES CORRECTO
-    v 3-INICIAMOS session_start()con el correo
-    v 3.1- CERRAR SESION
-    4-MANDAMOS AL MENU QUE CORRESPONDA--ADMIN, COMPRA, VENDE
-        IF TIPO....
-
-    -->
+ 
 
     <header class="p-4">
         <div class="row">
@@ -196,7 +181,7 @@ ESTO VA A SER EL LOGIN
             <div class="sesion col-sm-4 d-flex flex-column align-items-center align-items-md-end justify-content-center px-5">
        
                     <h6 class="user-activo text-center text-sm-end">
-    <?php
+        <?php
                     if (isset($_SESSION["email"])) {
                     echo "usuario: ";
                     echo $_SESSION["email"];
@@ -205,9 +190,9 @@ ESTO VA A SER EL LOGIN
                     }else{
                         echo"";
                     }
-    ?>
+        ?>
                     </h6>
-    <?php
+        <?php
                     if (isset($_SESSION["email"])) {
                     ?>
                     <form action="" method="post">
@@ -219,7 +204,7 @@ ESTO VA A SER EL LOGIN
                     }else{
                         echo"";
                     }
-    ?>               
+        ?>               
 
             </div>
         </div>
@@ -227,39 +212,40 @@ ESTO VA A SER EL LOGIN
     </header>
 
 <main class="container-lg container-forms">
-
-    <form class="standarForm" action="" method="post">
-    
-        <div class="mb-3 row">
-        <label for="email" class="col-sm-2 col-form-label">Email</label>
-        <div class="col-sm-10">
-          <input type="text" class="form-control" id="email" name="email">
-        </div>
-
-        </div>
-            <div class="mb-3 row">
-                <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-                <div class="col-sm-10">
-                <input type="password" class="form-control" id="inputPassword" name="password">
-            </div>
-        </div>
+    <div class="row justify-content-center">
+        <form class="standarForm" action="" method="post">
         
-        <div class="mt-4 row justify-content-center">
-            
-            <div class="col-sm-8 d-flex justify-content-center">
-            <input type="submit" class="form-control btn btn-success" id="iniciar-sesion" name="iniciar-sesion" value="Iniciar Sesion">
+            <div class="mb-3 row">
+            <label for="email" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+            <input type="text" class="form-control" id="email" name="email">
             </div>
-        </div>
 
-        <div class="mt-3 row justify-content-center">
-            
-            <div class="col-sm-8 d-flex justify-content-center">
-                <a class="form-control btn btn-primary" href="./registro.php">Registrarse e Iniciar Sesion</a>
             </div>
-        </div>
-    
-    
-    </form>
+                <div class="mb-3 row">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                    <div class="col-sm-10">
+                    <input type="password" class="form-control" id="inputPassword" name="password">
+                </div>
+            </div>
+            
+            <div class="mt-4 row justify-content-center">
+                
+                <div class="col-sm-8 d-flex justify-content-center">
+                <input type="submit" class="form-control btn btn-success" id="iniciar-sesion" name="iniciar-sesion" value="Iniciar Sesion">
+                </div>
+            </div>
+
+            <div class="mt-3 row justify-content-center">
+                
+                <div class="col-sm-8 d-flex justify-content-center">
+                    <a class="form-control btn btn-primary" href="./registro.php">Registrarse e Iniciar Sesion</a>
+                </div>
+            </div>
+        
+        
+        </form>
+    </div>
 </main>
 
 <footer></footer>
