@@ -1,6 +1,6 @@
 <?php
 
-
+//todo FALTA METER UN CIERRE DE SESION AUTOMATICO
 session_start();
 
 if (isset($_REQUEST["cerrar-sesion"])) {
