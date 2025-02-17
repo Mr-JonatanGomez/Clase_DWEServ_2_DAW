@@ -6,7 +6,7 @@ body{
 }
 
 header{
-    
+    font-size: 18px;
     background: rgb(222,252,215);
     background: linear-gradient(180deg, rgba(222,252,215,1) 0%, rgba(222,252,215,1) 25%, rgba(222,252,215,0.7484243697478992) 50%, rgba(222,252,215,0.499124649859944) 75%, rgba(222,252,215,0) 100%);
 }
@@ -119,6 +119,22 @@ footer{
 .table tbody tr {
     height: 85px;
 }
+
+.card h2{
+    font-size: 32px;
+}
+
+.card p{
+    font-size: 18px;
+}
+
+.li-m{
+    font-size: 18px;
+}
+.li-p{
+    font-size: 22px;
+}
+
 .miCard, .card-img-top{
     
     border: 3px ridge rgb(13, 110, 253)!important;

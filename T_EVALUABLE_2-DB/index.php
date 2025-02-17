@@ -190,15 +190,15 @@ if (isset($_REQUEST["comprar"])){
             <div class="card border-0 text-center">
               <img src="./utils//img/Imagen principal.webp" class="card-img-top img-fluid w-75 mx-auto" alt="...">
               <div class="card-body">
-                <h3 class="card-title"><?php echo $row['id_piso'].'. '.$row['poblacion'] ?></h3>
+                <h2 class="card-title"><?php echo $row['id_piso'].'. '.$row['poblacion'] ?></h2>
                 <p class="card-text">Calle <?php echo $row['calle'].
                 ' Nº '.$row['numero'].
-                ' Piso '.$row['piso'].'º'.
+                ', Piso '.$row['piso'].'º'.
                 $row['puerta'] ?></p>
               </div>
               <ul class="list-group list-group-flush">
-                <li class="list-group-item"><?php echo $row['metros']?> m²</li>
-                <li class="list-group-item"><strong> <?php echo $row['precio']?> €</strong></li>
+                <li class="list-group-item li-m"><?php echo $row['metros']?> m²</li>
+                <li class="list-group-item li-p"><strong> <?php echo $row['precio']?> €</strong></li>
                 
               </ul>
               <div class="card-body">

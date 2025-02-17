@@ -1,4 +1,5 @@
-DATABASE root "";
+USER DATABASE root 
+PASS DATABASE ""
 
 nombre: admin
 correo: admin@mail.com
@@ -16,3 +17,6 @@ vendedor
 Alejandra
 ale@mail.com / ale123
 vendedor
+
+Sandra
+sandra@mail.com / sandra123
