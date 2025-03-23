@@ -1,0 +1,5 @@
+1:Camisa blanca:10:15.99
+2:Pantalón jeans:20:29.99
+3:Zapatillas deportivas:15:49.99
+4:Chaquetón de cuero:5:99.99
+5:Gorra de béisbol:8:9.99

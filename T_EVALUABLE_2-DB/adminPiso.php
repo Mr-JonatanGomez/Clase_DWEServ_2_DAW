@@ -17,7 +17,7 @@ if (isset($_REQUEST["cerrar-sesion"])) {
   header("Location: index.php"); // o la página que desees
   exit();
 }
-
+pass
 
 if(isset($_REQUEST["registroP"])){
 
