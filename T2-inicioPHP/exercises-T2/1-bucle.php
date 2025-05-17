@@ -17,6 +17,7 @@ $numero=1;
         print $numero .". ";
     }
     $numero++;
+    
 }
 //muy entretenido y divertido de hacer
 
