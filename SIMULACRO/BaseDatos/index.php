@@ -26,13 +26,13 @@
     <div class="container">
         <h2>MOSTRAR/OCULTAR</h2>
         <form action="" method="POST" style="display: flex; flex-direction:column">
-            <div style="display: flex; flex-direction:row">
-                <p>Elige id para mostrar </p>
-                <input type="text" name="mostrarId">
+            
+                Elige id para mostrar: <input type="text" name="mostrarId" style="max-width: fit-content;">
                 <input type="submit" name="mostrarIdbtn" value="MOSTRAR TODOS USERs en DB" style="max-width: fit-content;">
 
-            </div>
+            <hr>
             <input type="submit" name="mostrar" value="MOSTRAR TODOS USERs en DB" style="max-width: fit-content;">
+            <hr>
             <input type="submit" name="ocultar" value="OCULTAR DATOS" style="max-width: fit-content;">
         </form>
     </div>
@@ -69,7 +69,7 @@ function agregarUsuario(){
         $email = $_REQUEST["email"];
         $edad = $_REQUEST["edad"];
 
-/* SEGURIDAD */
+
         $nombreUser= mysqli_real_escape_string($conexion, $nombre);
         $emailUser= mysqli_real_escape_string($conexion, $email);
         $edadUser= mysqli_real_escape_string($conexion, $edad);

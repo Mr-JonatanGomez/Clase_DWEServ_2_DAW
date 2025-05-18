@@ -1,3 +1,5 @@
-Jonatan: 8
-Alejandra: 10
-Eduardo: 9
+Pepe: 7
+Juna: 5
+Pepe: 4
+Juan: 9
+pepe: 2
