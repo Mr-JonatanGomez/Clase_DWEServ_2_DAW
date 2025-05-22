@@ -28,7 +28,7 @@
         <form action="" method="POST" style="display: flex; flex-direction:column">
             
                 Elige id para mostrar: <input type="text" name="mostrarId" style="max-width: fit-content;">
-                <input type="submit" name="mostrarIdbtn" value="MOSTRAR TODOS USERs en DB" style="max-width: fit-content;">
+                <input type="submit" name="mostrarIdbtn" value="MOSTRAR USUARIO CON ID ELEGIDO" style="max-width: fit-content;">
 
             <hr>
             <input type="submit" name="mostrar" value="MOSTRAR TODOS USERs en DB" style="max-width: fit-content;">

@@ -1,5 +1,0 @@
-Pepe: 7
-Juna: 5
-Pepe: 4
-Juan: 9
-pepe: 2
